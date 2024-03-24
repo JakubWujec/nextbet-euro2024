@@ -26,6 +26,45 @@ model Post {
     @@index([name])
 }
 
+model Bet {
+  id          Int      @id(map: "PK_Bets") @default(autoincrement())
+  userId      String
+  matchId     Int
+  homeTeamScore Int
+  awayTeamScore Int
+  createdAt   DateTime @default(now())
+
+  placedBy User @relation("betPlacedByUser", fields: [userId], references: [id], onUpdate: NoAction, map: "FK_Bet_User")
+  onMatch Match @relation("betPlacedOnMatch", fields: [matchId], references: [id], onUpdate: NoAction, map: "FK_Bet_Match")
+
+  @@unique([matchId, userId])
+}
+
+
+model Team {
+  id          Int     @id(map: "PK_Team") @default(autoincrement())
+  name        String  @db.VarChar(100)
+  code        String  @unique(map: "Unique_Team") @db.Char(3)
+  homeMatches Match[] @relation("matchAwayTeam")
+  awayMatches Match[] @relation("matchHomeTeam")
+}
+
+
+model Match {
+  id            Int      @id(map: "PK_Match") @default(autoincrement())
+  homeTeamId    Int
+  homeTeamScore Int?
+  awayTeamId    Int
+  awayTeamScore Int?
+  startDate     DateTime
+  finished      Boolean  @default(false)
+
+  awayTeam      Team     @relation("matchAwayTeam", fields: [awayTeamId], references: [id], onUpdate: NoAction, map: "FK_Match_Away_Team")
+  homeTeam      Team     @relation("matchHomeTeam", fields: [homeTeamId], references: [id], onUpdate: NoAction, map: "FK_Match_Home_Team")
+  bets Bet[] @relation("betPlacedOnMatch")
+}
+
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -62,6 +101,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+
+    bets Bet[] @relation("betPlacedByUser")
 }
 
 model VerificationToken {
