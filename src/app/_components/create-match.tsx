@@ -17,7 +17,13 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   homeTeamId: z.number(),
@@ -30,14 +36,15 @@ type CreateMatchInput = z.infer<typeof formSchema>
 export function CreateMatchForm() {
   const router = useRouter();
 
+  const { data: teams, isLoading } = api.team.getList.useQuery();
+
   const form = useForm<CreateMatchInput>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      homeTeamId: 1,
-      awayTeamId: 1,
       startDate: new Date()
     },
   })
+
 
   const createMatch = api.match.create.useMutation({
     onSuccess: () => {
@@ -47,11 +54,15 @@ export function CreateMatchForm() {
 
   function onSubmit(values: CreateMatchInput) {
     createMatch.mutate({
-      ...values,
+      homeTeamId: values.homeTeamId,
+      awayTeamId: values.awayTeamId,
       startDate: new Date().toISOString()
     });
   }
 
+  if(!teams){
+    return <div>Loading...</div>
+  }
 
   return (
     <Form {...form}>
@@ -65,9 +76,18 @@ export function CreateMatchForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Home Team</FormLabel>
-              <FormControl>
-                <Input placeholder="Team Name" {...field} />
-              </FormControl>
+              <Select onValueChange={(value) => form.setValue("homeTeamId", parseInt(value))}>
+                <FormControl>
+                  <SelectTrigger>
+                  <SelectValue placeholder="Choose Away Team" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {teams?.map((team) =>
+                    <SelectItem key={`${team.name}_${team.code}`} value={`${team.id}`}>{team.name}</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -78,14 +98,25 @@ export function CreateMatchForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Away Team</FormLabel>
-              <FormControl>
-                <Input placeholder="Team Code" {...field} />
-              </FormControl>
+              <Select onValueChange={(value) => form.setValue("awayTeamId", parseInt(value))}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose Away Team" />
+                  </SelectTrigger>
+                </FormControl>
+   
+                <SelectContent>
+                  {teams?.map((team) =>
+                    <SelectItem key={`${team.name}_${team.code}`} value={`${team.id}`}>{team.name}</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button type="submit">Submit</Button>
+        <Button type="button" onClick={() => console.log(form.getValues())}>Test</Button>
       </form>
     </Form>
   );
