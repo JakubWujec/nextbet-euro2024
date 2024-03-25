@@ -18,4 +18,9 @@ export const teamRouter = createTRPCRouter({
         },
       });
     }),
+
+  getList: publicProcedure
+    .query(({ ctx }) => {
+      return ctx.db.team.findMany();
+    }),
 });
