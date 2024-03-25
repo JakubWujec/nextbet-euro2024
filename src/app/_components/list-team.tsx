@@ -1,14 +1,13 @@
 "use client";
 
+import { DataTable } from "@/components/ui/data-table";
 import { api } from "@/trpc/react";
+import { Team, columns } from "@/app/teams/columns"
 
 export function ListTeam() {
-
-    const { data: teams, isLoading } = api.team.getList.useQuery();
+    const { data: teams, isLoading } = api.team.getList.useQuery<Team[]>();
     
     return (
-        <div>
-            Tu będzie lista teamsow.
-        </div>
+        <DataTable columns={columns} data={teams ?? []} />
     )
 }
