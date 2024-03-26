@@ -1,4 +1,6 @@
 import z from 'zod'
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+import { AppRouter } from '@/server/api/root';
 
 
 export const createMatchSchema = z.object({
@@ -20,6 +22,10 @@ export const updateMatchSchema = z.object({
 export const getSingleMatchSchema = z.object({
   matchId: z.number(),
 })
+
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];  
 
 export type CreateMatchInput = z.TypeOf<typeof createMatchSchema>
 

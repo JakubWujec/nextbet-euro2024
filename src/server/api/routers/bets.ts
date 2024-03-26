@@ -26,6 +26,14 @@ export const betRouter = createTRPCRouter({
             return ctx.db.bet.findMany({
                 where: {
                     placedBy: ctx.session.user
+                }, 
+                include: {
+                    onMatch: {
+                        include: {
+                          homeTeam: true,
+                          awayTeam: true,
+                        }
+                      }
                 }
             });
         }),

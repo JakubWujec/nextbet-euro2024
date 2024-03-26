@@ -11,6 +11,7 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { GetListWithCurrentUserBetsOutput } from "@/schema/match.schema";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -33,26 +34,7 @@ const multibetSchema = z.object(
 type MultiBetInput = z.infer<typeof multibetSchema>
 
 type MultibetFormProps = {
-  matches: ({
-    awayTeam: {
-      id: number;
-      name: string;
-      code: string;
-    };
-    homeTeam: {
-      id: number;
-      name: string;
-      code: string;
-    };
-  } & {
-    id: number;
-    homeTeamId: number;
-    homeTeamScore: number | null;
-    awayTeamId: number;
-    awayTeamScore: number | null;
-    startDate: Date;
-    finished: boolean;
-  })[]
+  matches: GetListWithCurrentUserBetsOutput
 }
 
 export function MultibetForm({ matches }: MultibetFormProps) {
@@ -62,8 +44,8 @@ export function MultibetForm({ matches }: MultibetFormProps) {
       bets: matches.map(match => {
         return {
           matchId: match.id,
-          homeTeamScore: 0,
-          awayTeamScore: 0
+          homeTeamScore: match.bets[0]?.homeTeamScore ?? 0,
+          awayTeamScore: match.bets[0]?.awayTeamScore ?? 0
         }
       })
     }

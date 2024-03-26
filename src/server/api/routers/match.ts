@@ -21,6 +21,36 @@ export const matchRouter = createTRPCRouter({
       });
     }),
 
+  getListWithCurrentUserBets: publicProcedure
+    .input(z.object({
+      date: z.date().optional()
+    }))
+    .query(({ ctx, input}) => {
+      const filters: Prisma.MatchWhereInput = {};
+
+      if (input.date) {
+        const nextDate = new Date(input.date);
+        nextDate.setDate(nextDate.getDate() + 1);
+        filters.startDate = {
+          gte: input.date.toISOString(),
+          lt: nextDate.toISOString()
+        }
+      }
+
+      return ctx.db.match.findMany({
+        where: filters,
+        include: {
+          awayTeam: true,
+          homeTeam: true,
+          bets: {
+            where: {
+              userId: ctx.session?.user?.id
+            }
+          }
+        }
+      });
+    }),
+
   getList: publicProcedure
     .input(z.object({
       date: z.date().optional()
@@ -28,15 +58,15 @@ export const matchRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       const filters: Prisma.MatchWhereInput = {};
 
-      if(input.date){
+      if (input.date) {
         const nextDate = new Date(input.date);
         nextDate.setDate(nextDate.getDate() + 1);
         filters.startDate = {
           gte: input.date.toISOString(),
-          lt:  nextDate.toISOString()
+          lt: nextDate.toISOString()
         }
       }
- 
+
       return ctx.db.match.findMany({
         where: filters,
         include: {
