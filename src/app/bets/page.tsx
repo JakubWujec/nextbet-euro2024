@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function BetsPage() {
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const { data: matches, isLoading: isLoadingMatches } = api.match.getList.useQuery();
+  const { data: matches, isLoading: isLoadingMatches } = api.match.getList.useQuery({date: selectedDate});
 
   if(!matches){
     return <div> Loading... </div>
