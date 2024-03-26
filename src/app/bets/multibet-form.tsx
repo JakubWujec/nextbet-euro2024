@@ -1,9 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -15,6 +11,10 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { api } from "@/trpc/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const betSchema = z.object({
   matchId: z.coerce.number(),
@@ -69,8 +69,16 @@ export function MultibetForm({ matches }: MultibetFormProps) {
     }
   })
 
+  const createBet = api.bet.createOrUpdate.useMutation({
+    onSuccess: () => {
+      console.log("SUCCESS")
+    },
+  });
+
   function onSubmit(values: MultiBetInput) {
-    console.log("VALUES", values)
+    for(let bet of values.bets){
+      createBet.mutate(bet);
+    }
   }
 
   return (
