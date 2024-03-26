@@ -6,7 +6,6 @@ import { api } from "@/trpc/react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,14 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const formSchema = z.object({
-  homeTeamId: z.number(),
-  awayTeamId: z.number(),
-  startDate: z.date(),
-})
-
-type CreateMatchInput = z.infer<typeof formSchema>
+import { CreateMatchInput, createMatchSchema } from "@/schema/match.schema";
 
 export function CreateMatchForm() {
   const router = useRouter();
@@ -39,12 +31,11 @@ export function CreateMatchForm() {
   const { data: teams, isLoading } = api.team.getList.useQuery();
 
   const form = useForm<CreateMatchInput>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(createMatchSchema),
     defaultValues: {
       startDate: new Date()
     },
   })
-
 
   const createMatch = api.match.create.useMutation({
     onSuccess: () => {
@@ -60,7 +51,7 @@ export function CreateMatchForm() {
     });
   }
 
-  if(!teams){
+  if (!teams) {
     return <div>Loading...</div>
   }
 
@@ -79,7 +70,7 @@ export function CreateMatchForm() {
               <Select onValueChange={(value) => form.setValue("homeTeamId", parseInt(value))}>
                 <FormControl>
                   <SelectTrigger>
-                  <SelectValue placeholder="Choose Away Team" />
+                    <SelectValue placeholder="Choose Away Team" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -104,7 +95,7 @@ export function CreateMatchForm() {
                     <SelectValue placeholder="Choose Away Team" />
                   </SelectTrigger>
                 </FormControl>
-   
+
                 <SelectContent>
                   {teams?.map((team) =>
                     <SelectItem key={`${team.name}_${team.code}`} value={`${team.id}`}>{team.name}</SelectItem>
