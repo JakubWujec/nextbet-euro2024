@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { startOfDay, add, formatISO} from "date-fns";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -29,11 +29,13 @@ export const matchRouter = createTRPCRouter({
       const filters: Prisma.MatchWhereInput = {};
 
       if (input.date) {
-        const nextDate = new Date(input.date);
-        nextDate.setDate(nextDate.getDate() + 1);
+        const gte = formatISO(startOfDay(input.date));
+        const lt = formatISO(add(gte, {
+          days: 1
+        }))
         filters.startDate = {
-          gte: input.date.toISOString(),
-          lt: nextDate.toISOString()
+          gte,
+          lt
         }
       }
 
@@ -59,11 +61,13 @@ export const matchRouter = createTRPCRouter({
       const filters: Prisma.MatchWhereInput = {};
 
       if (input.date) {
-        const nextDate = new Date(input.date);
-        nextDate.setDate(nextDate.getDate() + 1);
+        const gte = formatISO(startOfDay(input.date));
+        const lt = formatISO(add(gte, {
+          days: 1
+        }))
         filters.startDate = {
-          gte: input.date.toISOString(),
-          lt: nextDate.toISOString()
+          gte,
+          lt
         }
       }
 
