@@ -1,7 +1,8 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
 import { Team} from "@/app/teams/columns"
+import { EditMatchDialog } from "../admin/matches/edit-match-dialog"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Match = {
@@ -10,6 +11,7 @@ export type Match = {
     homeTeam: Team,
     awayTeam: Team,
 }
+const columnHelper = createColumnHelper<Match>()
 
 export const columns: ColumnDef<Match>[] = [
     {
@@ -28,4 +30,20 @@ export const columns: ColumnDef<Match>[] = [
         accessorKey: "startDate",
         header: "Start Date",
     },
+    {
+        accessorKey: "homeTeamScore",
+        header: "Home Team Score",
+    },
+    {
+        accessorKey: "awayTeamScore",
+        header: "Away Team Score",
+    },
+    columnHelper.display({
+        id: 'actions',
+        cell: props => {
+            return (
+                <EditMatchDialog matchId={props.row.getValue("id")}></EditMatchDialog>
+            )
+        },
+    }),
 ]

@@ -14,9 +14,15 @@ export const updateMatchSchema = z.object({
   homeTeamId: z.number(),
   awayTeamId: z.number(),
   startDate: z.date(),
-  homeTeamScore: z.number().nonnegative().optional(),
-  awayTeamScore: z.number().nonnegative().optional(),
+  homeTeamScore: z.coerce.number().nonnegative().optional(),
+  awayTeamScore: z.coerce.number().nonnegative().optional(),
   finished: z.boolean()
+})
+
+export const updateMatchScoreSchema = z.object({
+  matchId: z.number(),
+  homeTeamScore: z.coerce.number().nonnegative(),
+  awayTeamScore: z.coerce.number().nonnegative(),
 })
 
 export const getSingleMatchSchema = z.object({
@@ -25,8 +31,12 @@ export const getSingleMatchSchema = z.object({
 
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
+export type GetOneMatchOutput = RouterOutput['match']['getOne']
+
 export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];  
 
 export type CreateMatchInput = z.TypeOf<typeof createMatchSchema>
 
 export type UpdateMatchInput = z.TypeOf<typeof updateMatchSchema>
+
+export type UpdateMatchScoreInput = z.TypeOf<typeof updateMatchScoreSchema>
