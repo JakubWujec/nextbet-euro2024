@@ -28,6 +28,7 @@ type CreateTeamInput = z.infer<typeof formSchema>
 
 export function CreateTeamForm() {
   const router = useRouter();
+  const utils = api.useUtils();
 
   const form = useForm<CreateTeamInput>({
     resolver: zodResolver(formSchema),
@@ -40,6 +41,7 @@ export function CreateTeamForm() {
   const createTeam = api.team.create.useMutation({
     onSuccess: () => {
       router.refresh();
+      utils.team.getList.invalidate();
     },
   });
 

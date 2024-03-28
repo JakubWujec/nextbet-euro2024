@@ -27,6 +27,7 @@ import { CreateMatchInput, createMatchSchema } from "@/schema/match.schema";
 
 export function CreateMatchForm() {
   const router = useRouter();
+  const utils = api.useUtils();
 
   const { data: teams, isLoading } = api.team.getList.useQuery();
 
@@ -40,6 +41,7 @@ export function CreateMatchForm() {
   const createMatch = api.match.create.useMutation({
     onSuccess: () => {
       router.refresh();
+      utils.match.getList.invalidate()
     },
   });
 
