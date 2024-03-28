@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CreateTeamForm } from "../_components/create-team"
-import { ListTeam } from "../_components/list-team"
-import { CreateMatchForm } from "../_components/create-match"
 import { ListMatch } from "../_components/list-match"
+import { ListTeam } from "../_components/list-team"
+import { AddMatchDialog } from "./matches/add-match-dialog"
+import { AddTeamDialog } from "./teams/add-team-dialog"
 
 
 function AdminPage() {
@@ -15,12 +15,20 @@ function AdminPage() {
           <TabsTrigger value="teams">Teams</TabsTrigger>
         </TabsList>
         <TabsContent value="matches">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-1 items-center space-x-2">
+                <AddMatchDialog></AddMatchDialog>
+            </div>
+          </div>
           <ListMatch></ListMatch>
-          <CreateMatchForm></CreateMatchForm>
         </TabsContent>
         <TabsContent value="teams">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-1 items-center space-x-2">
+              <AddTeamDialog></AddTeamDialog>
+            </div>
+          </div>
           <ListTeam></ListTeam>
-          <CreateTeamForm></CreateTeamForm>
         </TabsContent>
       </Tabs>
     </div>
