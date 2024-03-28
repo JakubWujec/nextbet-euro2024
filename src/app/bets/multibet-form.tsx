@@ -31,6 +31,16 @@ const multibetSchema = z.object(
   }
 )
 
+function propsToFormValues(props: MultibetFormProps){
+  return props.matches.map((match, index) => {
+    return {
+      matchId: match.id,
+      homeTeamScore: match.bets[0]?.homeTeamScore ?? 0,
+      awayTeamScore: match.bets[0]?.awayTeamScore ?? 0
+    }
+  })
+}
+
 type MultiBetInput = z.infer<typeof multibetSchema>
 
 type MultibetFormProps = {
@@ -41,13 +51,10 @@ export function MultibetForm({ matches }: MultibetFormProps) {
   const form = useForm<MultiBetInput>({
     resolver: zodResolver(multibetSchema),
     defaultValues: {
-      bets: matches.map(match => {
-        return {
-          matchId: match.id,
-          homeTeamScore: match.bets[0]?.homeTeamScore ?? 0,
-          awayTeamScore: match.bets[0]?.awayTeamScore ?? 0
-        }
-      })
+      bets: propsToFormValues({matches})
+    },
+    values: {
+      bets: propsToFormValues({matches})
     }
   })
 
