@@ -13,8 +13,8 @@ function BetsPage() {
     return <div> Loading... </div>
   }
   return (
-    <div>
-      <h1>My Bets</h1>
+    <div className="mx-auto grid w-full max-w-6xl gap-2">
+      <h1 className="text-3xl font-semibold my-4">Bets</h1>
       <DateCarousel selectedDate={selectedDate} setSelectedDate={setSelectedDate}></DateCarousel>
       <MultibetForm matches={matchesWithBets}></MultibetForm>
     </div>
