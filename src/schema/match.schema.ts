@@ -35,6 +35,35 @@ export type GetOneMatchOutput = RouterOutput['match']['getOne']
 
 export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];  
 
+export type MatchWithBet = ({
+  awayTeam: {
+      id: number;
+      name: string;
+      code: string;
+  };
+  homeTeam: {
+      id: number;
+      name: string;
+      code: string;
+  };
+  bets: {
+      id: number;
+      userId: string;
+      matchId: number;
+      homeTeamScore: number;
+      awayTeamScore: number;
+      createdAt: Date;
+  }[];
+} & {
+  id: number;
+  homeTeamId: number;
+  homeTeamScore: number | null;
+  awayTeamId: number;
+  awayTeamScore: number | null;
+  startDate: Date;
+  finished: boolean;
+})
+
 export type CreateMatchInput = z.TypeOf<typeof createMatchSchema>
 
 export type UpdateMatchInput = z.TypeOf<typeof updateMatchSchema>
