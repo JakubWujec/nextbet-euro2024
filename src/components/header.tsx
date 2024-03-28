@@ -34,6 +34,12 @@ export function Header() {
                 >
                     Admin
                 </Link>
+                <Link
+                    href="/standings"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                    Standings
+                </Link>
             </nav>
             <Sheet>
                 <SheetTrigger asChild>
