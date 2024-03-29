@@ -5,6 +5,7 @@ import { MultibetForm } from "./multibet-form";
 import { DateCarousel } from "@/components/date-carousel";
 import { useState } from "react";
 import { BetForm } from "./bet-form";
+import { BetInfo } from "./bet-info";
 
 function BetsPage() {
   const [selectedDate, setSelectedDate] = useState(new Date())
@@ -25,7 +26,8 @@ function BetsPage() {
         <div>
           {matchesWithBets.map(matchWithBet =>
             <div key={matchWithBet.id} className="my-4">
-              <BetForm  match={matchWithBet}></BetForm>
+              <BetForm match={matchWithBet}></BetForm>
+              <BetInfo match={matchWithBet}></BetInfo>
             </div>
           )}
         </div>
