@@ -24,7 +24,9 @@ function BetsPage() {
       {(!matchesWithBets.length) ? (<div> No matches this day.</div>) :
         <div>
           {matchesWithBets.map(matchWithBet =>
-            <BetForm key={matchWithBet.id} match={matchWithBet}></BetForm>
+            <div key={matchWithBet.id} className="my-4">
+              <BetForm  match={matchWithBet}></BetForm>
+            </div>
           )}
         </div>
       }
