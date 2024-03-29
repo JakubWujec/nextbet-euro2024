@@ -26,7 +26,7 @@ function BetsPage() {
         <div>
           {matchesWithBets.map(matchWithBet =>
             <div key={matchWithBet.id} className="my-4">
-              <BetForm match={matchWithBet}></BetForm>
+              {/* <BetForm match={matchWithBet}></BetForm> */}
               <BetInfo2 match={matchWithBet}></BetInfo2>
             </div>
           )}
