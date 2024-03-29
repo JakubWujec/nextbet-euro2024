@@ -1,12 +1,9 @@
 "use client";
 
-import { api } from "@/trpc/react";
-import { MultibetForm } from "./multibet-form";
 import { DateCarousel } from "@/components/date-carousel";
+import { api } from "@/trpc/react";
 import { useState } from "react";
-import { BetForm } from "./bet-form";
-import { BetInfo } from "./bet-info";
-import { BetInfo as BetInfo2 } from "./bet-info2";
+import { BetInfo as BetInfo2 } from "./bet-info";
 function BetsPage() {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const { data: matchesWithBets, isLoading: isLoadingMatchesWithBets } = api.match.getListWithCurrentUserBets.useQuery({ date: selectedDate });
