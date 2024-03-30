@@ -5,6 +5,7 @@ import {
     protectedProcedure,
     publicProcedure,
 } from "@/server/api/trpc";
+import { Standing } from "@/schema/standing.schema";
 
 export const standingRouter = createTRPCRouter({
     getList: publicProcedure
@@ -23,10 +24,6 @@ export const standingRouter = createTRPCRouter({
                     GROUP BY "userId"
                 ) "T_rank" on "T_rank"."userId" = "User"."id"
             `
-            return standings as {
-                name: string,
-                rank: number,
-                points: number
-            }[]
+            return standings as Standing[]
         }),
 });
