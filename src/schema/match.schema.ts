@@ -1,6 +1,7 @@
 import z from 'zod'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { AppRouter } from '@/server/api/root';
+import { Bet, Match, Team } from '@prisma/client';
 
 
 export const createMatchSchema = z.object({
@@ -36,34 +37,10 @@ export type GetOneMatchOutput = RouterOutput['match']['getOne']
 export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];
 
 export type MatchWithBet = ({
-  awayTeam: {
-    id: number;
-    name: string;
-    code: string;
-  };
-  homeTeam: {
-    id: number;
-    name: string;
-    code: string;
-  };
-  bets: {
-    id: number;
-    userId: string;
-    matchId: number;
-    homeTeamScore: number;
-    points: number;
-    awayTeamScore: number;
-    createdAt: Date;
-  }[];
-} & {
-  id: number;
-  homeTeamId: number;
-  homeTeamScore: number | null;
-  awayTeamId: number;
-  awayTeamScore: number | null;
-  startDate: Date;
-  finished: boolean;
-})
+  awayTeam: Team;
+  homeTeam: Team;
+  bets: Bet[];
+} & Match)
 
 export type CreateMatchInput = z.TypeOf<typeof createMatchSchema>
 
