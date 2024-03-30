@@ -5,10 +5,9 @@ import { ColumnDef } from "@tanstack/react-table"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Standing = {
-    id: number
-    name: string;
-    overallPoints: number,
     rank: number,
+    name: string;
+    points: number,
 }
 
 export const columns: ColumnDef<Standing>[] = [
@@ -17,15 +16,11 @@ export const columns: ColumnDef<Standing>[] = [
         header: "Rank",
     },
     {
-        accessorKey: "id",
-        header: "id",
-    },
-    {
         accessorKey: "name",
         header: "User",
     },
     {
-        accessorKey: "overallPoints",
+        accessorKey: "points",
         header: "Points",
     },
 ]

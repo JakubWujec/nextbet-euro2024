@@ -6,26 +6,27 @@ import {
     publicProcedure,
 } from "@/server/api/trpc";
 
-
-const MOCK_DATA = [
-    {
-        id: 1,
-        name: "John",
-        overallPoints: 3,
-        rank: 1
-    },
-    {
-        id: 2,
-        name: "Amy",
-        overallPoints: 2,
-        rank: 2
-    }
-]
-
-
 export const standingRouter = createTRPCRouter({
     getList: publicProcedure
-        .query(({ ctx }) => {
-            return MOCK_DATA;
+        .query(async ({ ctx }) => {
+            const standings = await ctx.db.$queryRaw`
+                SELECT 
+                    "User"."name" as name, 
+                    "T_rank"."sum_points" as "points",
+                    RANK () OVER ( 
+                        ORDER BY "T_rank"."sum_points" DESC
+                    ) "rank" 
+                FROM "User"
+                JOIN (
+                    SELECT "Bet"."userId" AS "userId", SUM("Bet"."points") AS "sum_points" 
+                    FROM "Bet"
+                    GROUP BY "userId"
+                ) "T_rank" on "T_rank"."userId" = "User"."id"
+            `
+            return standings as {
+                name: string,
+                rank: number,
+                points: number
+            }[]
         }),
 });
