@@ -2,6 +2,7 @@ import { teamRouter } from "@/server/api/routers/team";
 import { matchRouter } from "@/server/api/routers/match";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { betRouter } from "./routers/bets";
+import { standingRouter } from "./routers/standings";
 
 /**
  * This is the primary router for your server.
@@ -11,7 +12,8 @@ import { betRouter } from "./routers/bets";
 export const appRouter = createTRPCRouter({
   team: teamRouter,
   match: matchRouter,
-  bet: betRouter
+  bet: betRouter,
+  standings: standingRouter
 });
 
 // export type definition of API

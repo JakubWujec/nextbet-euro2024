@@ -2,29 +2,22 @@
 
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "./columns";
-
-const MOCK_DATA = [
-    {
-        id: 1,
-        name: "John",
-        overallPoints: 3,
-        rank: 1
-    },
-    {
-        id: 2,
-        name: "Amy",
-        overallPoints: 2,
-        rank: 2
-    }
-]
-
+import { api } from "@/trpc/react";
 
 function StandingsPage() {
+  const { data: standings, isLoading } = api.standings.getList.useQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+  if (!standings) {
+    return <div>No data</div>
+  }
 
   return (
     <div className="mx-auto grid w-full max-w-6xl gap-2">
-        <h1 className="text-3xl font-semibold my-4">Standings</h1>
-        <DataTable columns={columns} data={MOCK_DATA} />
+      <h1 className="text-3xl font-semibold my-4">Standings</h1>
+      <DataTable columns={columns} data={standings} />
     </div>
   )
 }
