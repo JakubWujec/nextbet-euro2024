@@ -20,6 +20,7 @@ model Bet {
   matchId     Int
   homeTeamScore Int
   awayTeamScore Int
+  points      Int      @default(0)
   createdAt   DateTime @default(now())
 
   placedBy User @relation("betPlacedByUser", fields: [userId], references: [id], onUpdate: NoAction, map: "FK_Bet_User")
