@@ -14,7 +14,7 @@ export function UpdatePoints() {
     return (
         <div>
             <Button type="button" onClick={() => updatePoints.mutate({
-                matchId: 1
+                matchId: 6
             })}>Update points</Button>
 
         </div>

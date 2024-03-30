@@ -33,26 +33,27 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 
 export type GetOneMatchOutput = RouterOutput['match']['getOne']
 
-export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];  
+export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];
 
 export type MatchWithBet = ({
   awayTeam: {
-      id: number;
-      name: string;
-      code: string;
+    id: number;
+    name: string;
+    code: string;
   };
   homeTeam: {
-      id: number;
-      name: string;
-      code: string;
+    id: number;
+    name: string;
+    code: string;
   };
   bets: {
-      id: number;
-      userId: string;
-      matchId: number;
-      homeTeamScore: number;
-      awayTeamScore: number;
-      createdAt: Date;
+    id: number;
+    userId: string;
+    matchId: number;
+    homeTeamScore: number;
+    points: number;
+    awayTeamScore: number;
+    createdAt: Date;
   }[];
 } & {
   id: number;

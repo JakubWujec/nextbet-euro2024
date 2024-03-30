@@ -13,14 +13,14 @@ export function BetInfo({ match }: BetInfoProps) {
         <div className="grid grid-cols-4 grid-rows-4 gap-2 border border-gray-300 rounded-lg overflow-hidden shadow-md">
             <div className="flex flex-col items-center justify-center row-span-4">
                 <p className="text-lg font-semibold">{match.homeTeam.name}</p>
-                <p className="text-xl font-bold">3</p>
+                <p className="text-xl font-bold">{match.homeTeamScore ?? "?"}</p>
             </div>
             <div className="flex flex-col items-center justify-center row-span-2">
                 <p className="text-sm">{format(match.startDate, "hh:mm")}</p>
             </div>
             <div className="flex flex-col items-center justify-center row-span-4">
                 <p className="text-lg font-semibold">{match.awayTeam.name}</p>
-                <p className="text-xl font-bold">2</p>
+                <p className="text-xl font-bold">{match.awayTeamScore ?? "?"}</p>
             </div>
             <div className="flex flex-col pb-4 items-center justify-center col-start-2 col-span-1 row-start-3 row-span-2">
                 {hasBet ? <>
@@ -33,7 +33,7 @@ export function BetInfo({ match }: BetInfoProps) {
 
             </div>
             <div className="flex items-center justify-center bg-green-200 row-start-1 row-span-4 col-start-4">
-                <p className="text-3xl font-semibold">10</p>
+                <p className="text-3xl font-semibold">{match.bets[0]?.points ?? 0}</p>
                 <p className="text-sm">pts.</p>
             </div>
         </div>
