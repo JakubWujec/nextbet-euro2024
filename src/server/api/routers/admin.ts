@@ -1,17 +1,16 @@
 import { z } from "zod";
 
 import {
-    createTRPCRouter,
-    protectedProcedure,
-    publicProcedure,
+  createTRPCRouter,
+  protectedProcedure
 } from "@/server/api/trpc";
 
 export const adminRouter = createTRPCRouter({
-    updateBetPointsByMatchId: protectedProcedure
-        .input(z.object({ matchId: z.number() }))
-        .mutation(async ({ ctx, input }) => {
-            // for every bet on this match update points column;
-            let result = await ctx.db.$queryRaw`
+  updateBetPointsByMatchId: protectedProcedure
+    .input(z.object({ matchId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      // for every bet on this match update points column;
+      let result = await ctx.db.$queryRaw`
             UPDATE "Bet"
               set "points" = 
                 (CASE 
@@ -20,13 +19,13 @@ export const adminRouter = createTRPCRouter({
                 THEN 5
                 when sign("Match"."homeTeamScore" - "Match"."awayTeamScore") = sign("Bet"."homeTeamScore" - "Bet"."awayTeamScore")
                 THEN 2
-                else 1 END)
+                else 0 END)
             FROM 
               "Bet" as "BetAlias"
               INNER JOIN 
               "Match" ON "Match"."id" = "BetAlias"."matchId" AND "BetAlias"."matchId" = ${input.matchId}
             WHERE "Bet"."matchId" = ${input.matchId}
             `
-            return result;
-        }),
+      return result;
+    }),
 });
