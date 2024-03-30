@@ -3,6 +3,7 @@ import { matchRouter } from "@/server/api/routers/match";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { betRouter } from "./routers/bets";
 import { standingRouter } from "./routers/standings";
+import { adminRouter } from "./routers/admin";
 
 /**
  * This is the primary router for your server.
@@ -10,6 +11,7 @@ import { standingRouter } from "./routers/standings";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  admin: adminRouter,
   team: teamRouter,
   match: matchRouter,
   bet: betRouter,
