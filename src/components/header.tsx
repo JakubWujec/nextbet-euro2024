@@ -61,32 +61,20 @@ export function Header() {
                             <Package2 className="h-6 w-6" />
                             <span className="sr-only">Acme Inc</span>
                         </Link>
-                        <Link href="#" className="hover:text-foreground">
-                            Dashboard
+                        <Link href="admin" className="hover:text-foreground">
+                            Admin
                         </Link>
                         <Link
-                            href="#"
+                            href="bets"
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            Orders
+                            Bets
                         </Link>
                         <Link
-                            href="#"
+                            href="standings"
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            Products
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground"
-                        >
-                            Customers
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground"
-                        >
-                            Analytics
+                            Standings
                         </Link>
                     </nav>
                 </SheetContent>
