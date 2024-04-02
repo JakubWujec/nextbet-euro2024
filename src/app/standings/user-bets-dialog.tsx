@@ -19,17 +19,15 @@ export function UserBetsDialog({ userName, open, setOpen }: UserBetsDialogProps)
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
-                <div>
-                    {(!matchesWithBets.length) ? (<div> No matches this day.</div>) :
-                        <div>
-                            {matchesWithBets.map(matchWithBet =>
-                                <div key={matchWithBet.id} className="my-4">
-                                    <BetInfo match={matchWithBet}></BetInfo>
-                                </div>
-                            )}
-                        </div>
-                    }
-                </div>
+                {(!matchesWithBets.length) ? (<div> No bets.</div>) :
+                    <div>
+                        {matchesWithBets.map(matchWithBet =>
+                            <div key={matchWithBet.id} className="my-4">
+                                <BetInfo match={matchWithBet}></BetInfo>
+                            </div>
+                        )}
+                    </div>
+                }
             </DialogContent>
         </Dialog >
     )
