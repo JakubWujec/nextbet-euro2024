@@ -3,6 +3,7 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { api } from "@/trpc/react";
 import { BetInfo } from "../bets/bet-info";
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type UserBetsDialogProps = {
     userName: string;
@@ -18,16 +19,19 @@ export function UserBetsDialog({ userName, open, setOpen }: UserBetsDialogProps)
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent>
-                {(!matchesWithBets.length) ? (<div> No bets.</div>) :
-                    <div>
-                        {matchesWithBets.map(matchWithBet =>
-                            <div key={matchWithBet.id} className="my-4">
-                                <BetInfo match={matchWithBet}></BetInfo>
-                            </div>
-                        )}
-                    </div>
-                }
+            <DialogContent >
+                <h2>{userName} bets</h2>
+                <ScrollArea className="h-[600px]">
+                    {(!matchesWithBets.length) ? (<div> No bets.</div>) :
+                        <div>
+                            {matchesWithBets.map(matchWithBet =>
+                                <div key={matchWithBet.id} className="my-4">
+                                    <BetInfo match={matchWithBet}></BetInfo>
+                                </div>
+                            )}
+                        </div>
+                    }
+                </ScrollArea>
             </DialogContent>
         </Dialog >
     )
