@@ -6,17 +6,18 @@ import { api } from "@/trpc/react";
 import { EditMatchScoreForm } from "./edit-match-score-form";
 
 type EditMatchDialogProps = {
-    matchId: number
+    matchId: number;
+    open: boolean;
+    setOpen: (open: boolean) => void
 }
 
-export function EditMatchDialog({ matchId }: EditMatchDialogProps) {
+export function EditMatchDialog({ matchId, open, setOpen }: EditMatchDialogProps) {
     const { data: match, isLoading } = api.match.getOne.useQuery({ id: matchId });
 
-    if (!match) return <div>Loading...</div>
+    if (!match) return null;
 
     return (
-        <Dialog>
-            <DialogTrigger>Open</DialogTrigger>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
                 <EditMatchScoreForm preloadedValues={match}
                 ></EditMatchScoreForm>
