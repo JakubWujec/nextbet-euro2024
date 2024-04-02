@@ -120,6 +120,48 @@ export const matchRouter = createTRPCRouter({
       });
     }),
 
+  getListWithUserBetsThatHaveStartedAlready: publicProcedure
+    .input(z.object({
+      userName: z.string()
+    })).query(async ({ ctx, input }) => {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Can not create a bet while logged out',
+        })
+      }
+
+      const user = await ctx.db.user.findFirst({
+        where: {
+          name: input.userName
+        }
+      })
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'User not exist',
+        })
+      }
+
+      return ctx.db.match.findMany({
+        where: {
+          startDate: {
+            lt: new Date()
+          }
+        },
+        include: {
+          awayTeam: true,
+          homeTeam: true,
+          bets: {
+            where: {
+              userId: user.id
+            }
+          }
+        }
+      });
+    }),
+
   getList: publicProcedure
     .input(z.object({
       date: z.date().optional()
