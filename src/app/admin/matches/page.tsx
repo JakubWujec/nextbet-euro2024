@@ -1,17 +1,19 @@
 "use client"
 
-import { CreateMatchForm } from "@/app/_components/create-match"
-import { ListMatch } from "@/app/_components/list-match"
-import { useState } from "react";
-import { AddMatchDialog } from "./add-match-dialog";
-import { EditMatchDialog } from "./edit-match-dialog";
-import { DataTable } from "@/components/ui/data-table";
 import { columns } from "@/app/matches/columns";
+import { DataTable } from "@/components/ui/data-table";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { api } from "@/trpc/react";
+import { useState } from "react";
+import { EditMatchDialog } from "./edit-match-dialog";
 
 
 function Page() {
-  const { data: matches, isLoading } = api.match.getList.useQuery({});
+  const [page, setPage] = useState(1);
+  const { data: matches, isLoading } = api.match.getList.useQuery({
+    page: page,
+    pageSize: 5
+  },);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState<number | undefined>()
 
@@ -30,6 +32,27 @@ function Page() {
         matchId={selectedMatchId}
         open={openDialog}
         setOpen={setOpenDialog}></EditMatchDialog>}
+
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious onClick={() => {
+              setPage(page => Math.max(1, page - 1))
+            }} />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink>{page}</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext onClick={() => {
+              setPage(page => page + 1)
+            }} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   )
 }

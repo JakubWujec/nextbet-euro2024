@@ -164,9 +164,11 @@ export const matchRouter = createTRPCRouter({
 
   getList: publicProcedure
     .input(z.object({
-      date: z.date().optional()
+      date: z.date().optional(),
+      page: z.number().default(1),
+      pageSize: z.number().default(5)
     }))
-    .query(({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       const filters: Prisma.MatchWhereInput = {};
 
       if (input.date) {
@@ -180,13 +182,19 @@ export const matchRouter = createTRPCRouter({
         }
       }
 
-      return ctx.db.match.findMany({
+      let skip = (input.page - 1) * input.pageSize
+
+      let result = await ctx.db.match.findMany({
         where: filters,
         include: {
           awayTeam: true,
           homeTeam: true
-        }
+        },
+        skip: skip,
+        take: input.pageSize
       });
+
+      return result;
     }),
 
   getOne: publicProcedure
