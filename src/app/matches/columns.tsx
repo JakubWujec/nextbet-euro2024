@@ -2,6 +2,7 @@
 
 import { Team } from "@/app/teams/columns"
 import { ColumnDef } from "@tanstack/react-table"
+import { format } from "date-fns"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Match = {
@@ -25,8 +26,10 @@ export const columns: ColumnDef<Match>[] = [
         header: "Away Team",
     },
     {
-        accessorKey: "startDate",
         header: "Start Date",
+        accessorFn: (row) => {
+            return format(row.startDate, "dd/mm/yyyy HH:mm")
+        }
     },
     {
         accessorKey: "homeTeamScore",
