@@ -23,6 +23,7 @@ type EditMatchScoreFormProps = {
 }
 
 export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps) {
+    const utils = api.useUtils();
     const form = useForm<UpdateMatchScoreInput>({
         resolver: zodResolver(updateMatchScoreSchema),
         defaultValues: {
@@ -31,11 +32,11 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
             homeTeamScore: preloadedValues.homeTeamScore ?? 0,
             awayTeamScore: preloadedValues.awayTeamScore ?? 0
         }
-    }) 
+    })
 
     const updateMatch = api.match.updateScore.useMutation({
         onSuccess: () => {
-            console.log("HA")
+            utils.match.getList.invalidate()
         },
     });
 
@@ -88,7 +89,6 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                     )}
                 />
                 <Button type="submit">Submit</Button>
-                <Button type="button" onClick={() => console.log(form.formState)}>TEST</Button>
             </form>
         </Form>
     );
