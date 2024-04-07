@@ -18,7 +18,7 @@ function Page() {
   const [selectedMatchId, setSelectedMatchId] = useState<number | undefined>()
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-2">
+    <div className="mx-auto grid w-full gap-2">
       <h1 className="text-3xl font-semibold my-4">Matches</h1>
       <DataTable
         columns={columns}
