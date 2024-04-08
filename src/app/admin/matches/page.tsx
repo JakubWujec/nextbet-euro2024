@@ -6,6 +6,8 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 import { api } from "@/trpc/react";
 import { useState } from "react";
 import { EditMatchDialog } from "./edit-match-dialog";
+import { CirclePlus } from "lucide-react";
+import Link from "next/link";
 
 
 function Page() {
@@ -19,7 +21,18 @@ function Page() {
 
   return (
     <div className="mx-auto grid w-full gap-2">
-      <h1 className="text-3xl font-semibold my-4">Matches</h1>
+      <div className="flex justify-between items-center my-4">
+        <h1 className="text-3xl font-semibold">Matches</h1>
+        <Link
+          href={'/admin/matches/create'}
+          className="flex items-center h-8 gap-1 p-2 bg-slate-200 rounded"
+        >
+          <p className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Add Match
+          </p>
+          <CirclePlus className="h-3.5 w-3.5" />
+        </Link>
+      </div>
       <DataTable
         columns={columns}
         data={matches ?? []}
