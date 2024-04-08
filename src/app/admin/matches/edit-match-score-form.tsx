@@ -50,7 +50,7 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8"
             >
-                <div>{preloadedValues.homeTeam.name} vs {preloadedValues.awayTeam.name}</div>
+                <h1 className="text-3xl font-semibold">Edit Match</h1>
                 <FormField
                     control={form.control}
                     name='matchId'
@@ -67,7 +67,7 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                     name='homeTeamScore'
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Home Team Score</FormLabel>
+                            <FormLabel>{preloadedValues.homeTeam.name}</FormLabel>
                             <FormControl>
                                 <Input type="number" {...field} />
                             </FormControl>
@@ -80,7 +80,7 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                     name='awayTeamScore'
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Away Team Score</FormLabel>
+                            <FormLabel>{preloadedValues.awayTeam.name}</FormLabel>
                             <FormControl>
                                 <Input type="number" {...field} />
                             </FormControl>
