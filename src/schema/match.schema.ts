@@ -1,12 +1,13 @@
 import z from 'zod'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { AppRouter } from '@/server/api/root';
-import { Bet, Match, Team } from '@prisma/client';
+import { Bet, Match, Team, Stage } from '@prisma/client';
 
 
 export const createMatchSchema = z.object({
   homeTeamId: z.number(),
   awayTeamId: z.number(),
+  stage: z.nativeEnum(Stage).default("G"),
   startDate: z.date()
 })
 

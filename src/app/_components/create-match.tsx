@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CreateMatchInput, createMatchSchema } from "@/schema/match.schema";
+import { Stage } from '@prisma/client';
 
 export function CreateMatchForm() {
   const router = useRouter();
@@ -101,6 +102,29 @@ export function CreateMatchForm() {
                 <SelectContent>
                   {teams?.map((team) =>
                     <SelectItem key={`${team.name}_${team.code}`} value={`${team.id}`}>{team.name}</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="stage"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Stage</FormLabel>
+              <Select>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose Stage" />
+                  </SelectTrigger>
+                </FormControl>
+
+                <SelectContent>
+                  {Object.keys(Stage).map((stage) =>
+                    <SelectItem key={stage} value={stage}>{stage}</SelectItem>
                   )}
                 </SelectContent>
               </Select>

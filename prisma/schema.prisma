@@ -47,10 +47,19 @@ model Match {
   awayTeamScore Int?
   startDate     DateTime
   finished      Boolean  @default(false)
+  stage Stage   @default(G)
 
   awayTeam      Team     @relation("matchAwayTeam", fields: [awayTeamId], references: [id], onUpdate: NoAction, map: "FK_Match_Away_Team")
   homeTeam      Team     @relation("matchHomeTeam", fields: [homeTeamId], references: [id], onUpdate: NoAction, map: "FK_Match_Home_Team")
   bets Bet[] @relation("betPlacedOnMatch")
+}
+
+enum Stage {
+  G
+  R16
+  QF
+  SF
+  F
 }
 
 
