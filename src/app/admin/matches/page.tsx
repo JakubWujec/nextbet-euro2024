@@ -1,6 +1,6 @@
 "use client"
 
-import { columns } from "@/app/matches/columns";
+import { columns } from "@/app/admin/matches/columns";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { api } from "@/trpc/react";
 import { useState } from "react";
