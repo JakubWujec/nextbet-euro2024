@@ -1,6 +1,7 @@
 "use client"
 
 import { Team } from "@/app/teams/columns"
+import { Stage } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 // This type is used to define the shape of our data.
@@ -10,6 +11,7 @@ export type Match = {
     startDate: Date
     homeTeam: Team,
     awayTeam: Team,
+    stage: Stage,
 }
 
 export const columns: ColumnDef<Match>[] = [
@@ -24,6 +26,13 @@ export const columns: ColumnDef<Match>[] = [
     {
         accessorKey: "awayTeam.code",
         header: "Away Team",
+    },
+    {
+        accessorKey: "stage",
+        header: "Stage",
+        filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id))
+        },
     },
     {
         header: "Start Date",

@@ -1,13 +1,13 @@
 "use client"
 
 import { columns } from "@/app/matches/columns";
-import { DataTable } from "@/components/ui/data-table";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { api } from "@/trpc/react";
 import { useState } from "react";
 import { EditMatchDialog } from "./edit-match-dialog";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
+import { DataTable } from "./data-table";
 
 
 function Page() {
