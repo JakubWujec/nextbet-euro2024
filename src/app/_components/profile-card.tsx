@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 const username = 'Adrax_Sazir'
 const usernameSub = "AS24"
@@ -8,12 +9,15 @@ const betsCompleted = 40
 const betsPending = 10
 const points = 36
 
+type ProfileCardProps = {
+    name: string;
+}
 
-export function ProfileCard() {
+export function ProfileCard({ name }: ProfileCardProps) {
     return (
         <Card>
             <CardHeader className="flex flex-col items-center">
-                <CardTitle>{username}</CardTitle>
+                <CardTitle>{name}</CardTitle>
                 <CardDescription>{usernameSub}</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-center flex-wrap gap-2">
@@ -23,7 +27,9 @@ export function ProfileCard() {
                 <ScoreCard title="Completed" value={`${betsCompleted}`}></ScoreCard>
             </CardContent>
             <CardFooter className="flex justify-center">
-                <Button className="w-full">Show completed bets</Button>
+                <Button asChild className="w-full">
+                    <Link href={`/users/${name}`} target="_blank">Show Profile</Link>
+                </Button>
             </CardFooter>
         </Card>
     )

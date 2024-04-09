@@ -1,10 +1,11 @@
 "use client";
 
 import { DataTable } from "@/components/ui/data-table";
-import { columns } from "./columns";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { api } from "@/trpc/react";
-import { UserBetsDialog } from "./user-bets-dialog";
 import { useState } from "react";
+import { ProfileCard } from "../_components/profile-card";
+import { columns } from "./columns";
 
 function StandingsPage() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -29,10 +30,13 @@ function StandingsPage() {
           setOpenDialog((open) => !open)
         }}
       />
-      {
-        selectedUserName && <UserBetsDialog userName={selectedUserName} open={openDialog} setOpen={setOpenDialog}></UserBetsDialog>
+      {selectedUserName &&
+        <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+          <DialogContent >
+            <ProfileCard name={selectedUserName}></ProfileCard>
+          </DialogContent>
+        </Dialog >
       }
-
     </div>
   )
 }
