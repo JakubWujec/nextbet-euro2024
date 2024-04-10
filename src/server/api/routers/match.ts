@@ -24,6 +24,29 @@ export const matchRouter = createTRPCRouter({
       });
     }),
 
+  deleteOne: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+
+      let removeBets = await ctx.db.bet.deleteMany({
+        where: {
+          matchId: input.id
+        }
+      })
+
+      let match = await ctx.db.match.delete({
+        where: {
+          id: input.id
+        }
+      })
+
+      return {
+        message: "Deleted",
+        data: match
+      }
+
+    }),
+
   update: publicProcedure
     .input(updateMatchSchema)
     .mutation(async ({ ctx, input }) => {

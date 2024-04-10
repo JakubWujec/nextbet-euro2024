@@ -34,6 +34,13 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
         }
     })
 
+    const deleteMatch = api.match.deleteOne.useMutation({
+        onSuccess: () => {
+            utils.match.getList.invalidate()
+        },
+    });
+
+
     const updateMatch = api.match.updateScore.useMutation({
         onSuccess: () => {
             utils.match.getList.invalidate()
@@ -89,6 +96,11 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                     )}
                 />
                 <Button type="submit">Submit</Button>
+                <Button type="button" onClick={() => {
+                    console.log("XXX", preloadedValues.id)
+                    deleteMatch.mutate({ id: preloadedValues.id })
+                }
+                }>Delete</Button>
             </form>
         </Form>
     );
