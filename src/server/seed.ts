@@ -1,6 +1,8 @@
 import { db } from "./db";
 
 async function main() {
+    const clearTeams = await db.team.deleteMany();
+
     const teams = await db.team.createMany({
         data: [
             { name: 'Germany', code: 'GER' },
@@ -19,26 +21,15 @@ async function main() {
             { name: 'Netherlands', code: 'NED' },
             { name: 'Austria', code: 'AUT' },
             { name: 'France', code: 'FRA' },
-            { name: 'Belgium', code: 'BEL' },
             { name: 'Slovakia', code: 'SLO' },
-            { name: 'Romania', code: 'BEL' },
+            { name: 'Belgium', code: 'BEL' },
+            { name: 'Romania', code: 'ROM' },
             { name: 'Ukraine', code: 'UKR' },
-            { name: 'Turkiye', code: 'TUR' },
+            { name: 'Türkiye', code: 'TUR' },
             { name: 'Portugal', code: 'POR' },
             { name: 'Czechia', code: 'CZE' },
-            { name: 'Turkiye', code: 'TUR' },
             { name: 'Georgia', code: 'GEO' },
         ]
-    });
-
-    const matches = await db.match.createMany({
-        data: [
-            { startDate: new Date(), homeTeamId: 1, awayTeamId: 2 },
-            { startDate: new Date(), homeTeamId: 3, awayTeamId: 4 },
-            { startDate: new Date(), homeTeamId: 3, awayTeamId: 1 },
-            { startDate: new Date(), homeTeamId: 2, awayTeamId: 4 },
-            { startDate: new Date(), homeTeamId: 4, awayTeamId: 1 },
-            { startDate: new Date(), homeTeamId: 2, awayTeamId: 3 },]
     });
 }
 main()
