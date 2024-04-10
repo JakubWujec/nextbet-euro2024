@@ -23,8 +23,8 @@ model Bet {
   points      Int      @default(0)
   createdAt   DateTime @default(now())
 
-  placedBy User @relation("betPlacedByUser", fields: [userId], references: [id], onUpdate: NoAction, map: "FK_Bet_User")
-  onMatch Match @relation("betPlacedOnMatch", fields: [matchId], references: [id], onUpdate: NoAction, map: "FK_Bet_Match")
+  placedBy User @relation("betPlacedByUser", fields: [userId], references: [id], onUpdate: NoAction, onDelete: Cascade, map: "FK_Bet_User")
+  onMatch Match @relation("betPlacedOnMatch", fields: [matchId], references: [id], onUpdate: NoAction, onDelete: Cascade, map: "FK_Bet_Match")
 
   @@unique([matchId, userId])
 }
