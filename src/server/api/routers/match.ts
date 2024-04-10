@@ -1,4 +1,4 @@
-import { updateMatchSchema, updateMatchScoreSchema } from "@/schema/match.schema";
+import { createMatchSchema, updateMatchSchema, updateMatchScoreSchema } from "@/schema/match.schema";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -11,13 +11,14 @@ import { z } from "zod";
 
 export const matchRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(z.object({ homeTeamId: z.number(), awayTeamId: z.number(), startDate: z.string() }))
+    .input(createMatchSchema)
     .mutation(async ({ ctx, input }) => {
 
       return ctx.db.match.create({
         data: {
           homeTeamId: input.homeTeamId,
           awayTeamId: input.awayTeamId,
+          stage: input.stage,
           startDate: input.startDate
         },
       });

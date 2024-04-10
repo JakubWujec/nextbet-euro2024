@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { CreateMatchInput, createMatchSchema } from "@/schema/match.schema";
 import { Stage } from '@prisma/client';
+import { DateTimePicker, TimePickerDemo } from "@/components/ui/time-picker-demo";
 
 export function CreateMatchForm() {
   const router = useRouter();
@@ -50,7 +51,8 @@ export function CreateMatchForm() {
     createMatch.mutate({
       homeTeamId: values.homeTeamId,
       awayTeamId: values.awayTeamId,
-      startDate: new Date().toISOString()
+      stage: values.stage,
+      startDate: values.startDate,
     });
   }
 
@@ -129,6 +131,16 @@ export function CreateMatchForm() {
                 </SelectContent>
               </Select>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="startDate"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Kickoff</FormLabel>
+              <DateTimePicker onValueChanged={(value) => form.setValue("startDate", value)}></DateTimePicker>
             </FormItem>
           )}
         />
