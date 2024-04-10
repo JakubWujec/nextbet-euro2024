@@ -65,17 +65,17 @@ export async function Header() {
                             <Package2 className="h-6 w-6" />
                             <span className="sr-only">Acme Inc</span>
                         </Link>
-                        <Link href="admin" className="hover:text-foreground">
+                        <Link href="/admin" className="hover:text-foreground">
                             Admin
                         </Link>
                         <Link
-                            href="bets"
+                            href="/bets"
                             className="text-muted-foreground hover:text-foreground"
                         >
                             Bets
                         </Link>
                         <Link
-                            href="standings"
+                            href="/standings"
                             className="text-muted-foreground hover:text-foreground"
                         >
                             Standings
