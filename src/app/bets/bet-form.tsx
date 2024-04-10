@@ -6,8 +6,9 @@ import { CreateBetInput, createBetSchema } from "@/schema/bet.schema";
 import { MatchWithBet } from "@/schema/match.schema";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from 'date-fns';
 import { useForm } from "react-hook-form";
-import { format } from 'date-fns'
+import Image from 'next/image'
 
 type BetFormProps = {
     match: MatchWithBet
@@ -47,11 +48,15 @@ export function BetForm({ match }: BetFormProps) {
                                 name={`homeTeamScore`}
                                 render={({ field }) => (
                                     <FormItem className="flex flex-row items-center">
-
                                         <FormControl>
                                             <Input className="w-24" type="number" {...field} />
                                         </FormControl>
-                                        <FormLabel>{match.homeTeam.name}</FormLabel>
+                                        <FormLabel>
+                                            <Image src={`/flags/${match.homeTeam.code}.svg`} alt={match.homeTeam.code} width="64" height="64" />
+                                            <p>{match.homeTeam.name}</p>
+
+
+                                        </FormLabel>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -62,7 +67,10 @@ export function BetForm({ match }: BetFormProps) {
                                 name={`awayTeamScore`}
                                 render={({ field }) => (
                                     <FormItem className="flex flex-row items-center">
-                                        <FormLabel>{match.awayTeam.name}</FormLabel>
+                                        <FormLabel>
+                                            <Image src={`/flags/${match.awayTeam.code}.svg`} alt={match.awayTeam.code} width="64" height="64" />
+                                            <p>{match.awayTeam.name}</p>
+                                        </FormLabel>
                                         <FormControl>
                                             <Input className="w-24" type="number" {...field} />
                                         </FormControl>
@@ -76,7 +84,7 @@ export function BetForm({ match }: BetFormProps) {
                     </CardContent>
                 </Card>
 
-               
+
             </form>
         </Form>
     );

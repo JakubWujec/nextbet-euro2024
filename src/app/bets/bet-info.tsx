@@ -1,5 +1,6 @@
 import { MatchWithBet } from "@/schema/match.schema";
 import { format } from "date-fns";
+import Image from 'next/image'
 
 
 type BetInfoProps = {
@@ -12,13 +13,15 @@ export function BetInfo({ match }: BetInfoProps) {
     return (
         <div className="grid grid-cols-4 grid-rows-4 gap-2 border border-gray-300 rounded-lg overflow-hidden shadow-md">
             <div className="flex flex-col items-center justify-center row-span-4">
+                <Image src={`/flags/${match.homeTeam.code}.svg`} alt={match.homeTeam.code} width="64" height="64" />
                 <p className="text-lg font-semibold">{match.homeTeam.name}</p>
                 <p className="text-xl font-bold">{match.homeTeamScore ?? "?"}</p>
             </div>
             <div className="flex flex-col items-center justify-center row-span-2">
-                <p className="text-sm">{format(match.startDate, "hh:mm")}</p>
+                <p className="text-sm">{format(match.startDate, "HH:mm")}</p>
             </div>
             <div className="flex flex-col items-center justify-center row-span-4">
+                <Image src={`/flags/${match.awayTeam.code}.svg`} alt={match.awayTeam.code} width="64" height="64" />
                 <p className="text-lg font-semibold">{match.awayTeam.name}</p>
                 <p className="text-xl font-bold">{match.awayTeamScore ?? "?"}</p>
             </div>
