@@ -79,7 +79,14 @@ export async function Header() {
                         <>
                             <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>{username}</DropdownMenuLabel>
-                                <DropdownMenuSeparator /><DropdownMenuItem><Link
+                                <DropdownMenuItem>
+                                    <Link
+                                        href={"/settings"}
+                                    >
+                                        Settings
+                                    </Link></DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem><Link
                                     href={"/api/auth/signout"}
                                 >
                                     Sign out
