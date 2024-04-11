@@ -11,10 +11,12 @@ import Link from "next/link"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { getServerAuthSession } from "@/server/auth"
+import { UserRole } from "@prisma/client"
 
 export async function Header() {
     const session = await getServerAuthSession();
     const username = session?.user.name
+    const links = getNavLinks('ADMIN');
 
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -26,24 +28,12 @@ export async function Header() {
                     <Package2 className="h-6 w-6" />
                     <span className="sr-only">Acme Inc</span>
                 </Link>
-                <Link
-                    href="/bets"
+                {links.map(link => <Link
+                    href={link.href}
                     className="text-foreground transition-colors hover:text-foreground"
                 >
-                    Bets
-                </Link>
-                <Link
-                    href="/admin"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Admin
-                </Link>
-                <Link
-                    href="/standings"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                    Standings
-                </Link>
+                    {link.label}
+                </Link>)}
             </nav>
             <Sheet>
                 <SheetTrigger asChild>
@@ -65,21 +55,12 @@ export async function Header() {
                             <Package2 className="h-6 w-6" />
                             <span className="sr-only">Acme Inc</span>
                         </Link>
-                        <Link href="/admin" className="hover:text-foreground">
-                            Admin
-                        </Link>
-                        <Link
-                            href="/bets"
+                        {links.map(link => <Link
+                            href={link.href}
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            Bets
-                        </Link>
-                        <Link
-                            href="/standings"
-                            className="text-muted-foreground hover:text-foreground"
-                        >
-                            Standings
-                        </Link>
+                            {link.label}
+                        </Link>)}
                     </nav>
                 </SheetContent>
             </Sheet>
@@ -104,4 +85,36 @@ export async function Header() {
             </div>
         </header>
     )
+}
+
+function getNavLinks(userRole: UserRole | null | undefined) {
+    let links: {
+        label: string;
+        href: string;
+    }[] = [];
+    const userLinks = [
+        {
+            label: 'Bets',
+            href: '/bets'
+        },
+        {
+            label: "Standings",
+            href: '/standings'
+        }
+    ]
+    const adminLinks = [
+        {
+            label: 'Admin',
+            href: '/admin',
+        },
+    ]
+    if (userRole === 'ADMIN') {
+        links.push(...adminLinks)
+    }
+    if (userRole != null) {
+        links.push(...userLinks)
+    }
+
+
+    return links;
 }
