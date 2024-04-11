@@ -66,25 +66,29 @@ export async function Header() {
                     </nav>
                 </SheetContent>
             </Sheet>
-            <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="secondary" size="icon" className="rounded-full">
-                            <CircleUser className="h-5 w-5" />
-                            <span className="sr-only">Toggle user menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>{username}</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem><Link
-                            href={"/api/auth/signout"}
-                        >
-                            Sign out
-                        </Link></DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+            {session &&
+                <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="secondary" size="icon" className="rounded-full">
+                                <CircleUser className="h-5 w-5" />
+                                <span className="sr-only">Toggle user menu</span>
+                            </Button>
+                        </DropdownMenuTrigger>
+
+                        <>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>{username}</DropdownMenuLabel>
+                                <DropdownMenuSeparator /><DropdownMenuItem><Link
+                                    href={"/api/auth/signout"}
+                                >
+                                    Sign out
+                                </Link></DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </>
+                    </DropdownMenu>
+                </div>
+            }
         </header>
     )
 }
