@@ -40,47 +40,49 @@ export function BetForm({ match }: BetFormProps) {
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <Card>
-                    <CardContent >
-                        <div>{format(match.startDate, 'MM/dd/yyyy HH:mm')}</div>
-                        <div className="flex flex-row justify-center gap-x-10">
+                    <CardContent className="grid grid-cols-5 grid-rows-4 gap-2 border border-gray-300 rounded-lg overflow-hidden shadow-md py-4">
+                        <div className="row-span-1 col-span-5 flex justify-center items-center">{format(match.startDate, 'MM/dd/yyyy HH:mm')}</div>
+                        <div className="row-start-2 row-span-2 col-start-1 col-span-2 flex justify-evenly items-center flex-wrap">
+                            <FormLabel className="flex flex-col gap-1 items-center">
+                                <Image src={`/flags/${match.homeTeam.code}.svg`} alt={match.homeTeam.code} width="96" height="96" />
+                                <p>{match.homeTeam.name}</p>
+                            </FormLabel>
                             <FormField
                                 control={form.control}
                                 name={`homeTeamScore`}
                                 render={({ field }) => (
                                     <FormItem className="flex flex-row items-center">
                                         <FormControl>
-                                            <Input className="w-24" type="number" {...field} />
+                                            <Input className="w-24" type="number" min="0" {...field} />
                                         </FormControl>
-                                        <FormLabel>
-                                            <Image src={`/flags/${match.homeTeam.code}.svg`} alt={match.homeTeam.code} width="64" height="64" />
-                                            <p>{match.homeTeam.name}</p>
-
-
-                                        </FormLabel>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
-
+                        </div>
+                        <div className="row-start-2 row-span-2 col-start-3 col-span-1  flex justify-center items-center">
+                            <p>VS</p>
+                        </div>
+                        <div className="row-start-2 row-span-2 col-start-4 col-span-2  flex justify-evenly items-center flex-wrap-reverse">
                             <FormField
                                 control={form.control}
                                 name={`awayTeamScore`}
                                 render={({ field }) => (
                                     <FormItem className="flex flex-row items-center">
-                                        <FormLabel>
-                                            <Image src={`/flags/${match.awayTeam.code}.svg`} alt={match.awayTeam.code} width="64" height="64" />
-                                            <p>{match.awayTeam.name}</p>
-                                        </FormLabel>
+
                                         <FormControl>
-                                            <Input className="w-24" type="number" {...field} />
+                                            <Input className="w-24" type="number" min="0" {...field} />
                                         </FormControl>
-                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
-
+                            <FormLabel className="flex flex-col gap-1 items-center">
+                                <Image src={`/flags/${match.awayTeam.code}.svg`} alt={match.awayTeam.code} width="96" height="96" />
+                                <p>{match.awayTeam.name}</p>
+                            </FormLabel>
                         </div>
-                        <Button type="submit">Submit</Button>
+                        <div className="row-start-4 row-span-1 col-start-1 col-span-5 flex justify-center items-center">
+                            <Button type="submit">Submit</Button>
+                        </div>
                     </CardContent>
                 </Card>
 
@@ -89,3 +91,4 @@ export function BetForm({ match }: BetFormProps) {
         </Form>
     );
 }
+

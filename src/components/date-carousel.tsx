@@ -28,11 +28,10 @@ export function DateCarousel({ selectedDate, setSelectedDate }: DateCarouselProp
     }
 
     return (
-        <Card className="flex items-center p-2">
+        <div className="flex gap-2 justify-center">
             <Button onClick={onPrev}>Prev</Button>
             <DatePickerDemo date={selectedDate} setDate={setDate}></DatePickerDemo>
             <Button onClick={onNext}>Next</Button>
-
-        </Card>
+        </div>
     )
 }
