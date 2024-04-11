@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -9,12 +11,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from 'date-fns';
 import { useForm } from "react-hook-form";
 import Image from 'next/image'
+import { useToast } from "@/components/ui/use-toast";
 
 type BetFormProps = {
     match: MatchWithBet
 }
 
 export function BetForm({ match }: BetFormProps) {
+    const { toast } = useToast()
     const form = useForm<CreateBetInput>({
         resolver: zodResolver(createBetSchema),
         defaultValues: {
@@ -26,11 +30,16 @@ export function BetForm({ match }: BetFormProps) {
 
     const createBet = api.bet.createOrUpdate.useMutation({
         onSuccess: () => {
-            console.log("SUCCESS")
+            toast({
+                variant: "success",
+                title: "Saved",
+                description: "Bet saved successfully",
+            })
         },
     });
 
     function onSubmit(values: CreateBetInput) {
+
         createBet.mutate(values);
     }
 
