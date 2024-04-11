@@ -16,7 +16,7 @@ import { UserRole } from "@prisma/client"
 export async function Header() {
     const session = await getServerAuthSession();
     const username = session?.user.name
-    const links = getNavLinks('ADMIN');
+    const links = getNavLinks(session?.user.role);
 
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -29,6 +29,7 @@ export async function Header() {
                     <span className="sr-only">Acme Inc</span>
                 </Link>
                 {links.map(link => <Link
+                    key={link.label}
                     href={link.href}
                     className="text-foreground transition-colors hover:text-foreground"
                 >
@@ -56,6 +57,7 @@ export async function Header() {
                             <span className="sr-only">Acme Inc</span>
                         </Link>
                         {links.map(link => <Link
+                            key={link.label}
                             href={link.href}
                             className="text-muted-foreground hover:text-foreground"
                         >
