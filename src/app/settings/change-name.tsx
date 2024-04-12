@@ -17,12 +17,16 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-function ChangeName() {
+type ChangeNameProps = {
+    username: string;
+}
+
+function ChangeName({ username }: ChangeNameProps) {
     const router = useRouter();
     const form = useForm<ChangeNameInput>({
         resolver: zodResolver(changeNameSchema),
         defaultValues: {
-            name: "Test"
+            name: username
         },
     })
 
