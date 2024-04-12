@@ -112,11 +112,12 @@ export const matchRouter = createTRPCRouter({
       }
     }),
 
-  getListWithCurrentUserBets: publicProcedure
+  myBets: protectedProcedure
     .input(z.object({
       date: z.date().optional()
     }))
     .query(({ ctx, input }) => {
+      const userId = ctx.session.user.id
       const filters: Prisma.MatchWhereInput = {};
 
       if (input.date) {
@@ -137,7 +138,7 @@ export const matchRouter = createTRPCRouter({
           homeTeam: true,
           bets: {
             where: {
-              userId: ctx.session?.user?.id
+              userId: userId
             }
           }
         }

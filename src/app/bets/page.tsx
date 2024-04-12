@@ -9,7 +9,7 @@ import { BetForm } from "./bet-form";
 
 function BetsPage() {
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const { data: matchesWithBets, isLoading: isLoadingMatchesWithBets } = api.match.getListWithCurrentUserBets.useQuery({ date: selectedDate });
+  const { data: matchesWithBets, isLoading: isLoadingMatchesWithBets } = api.match.myBets.useQuery({ date: selectedDate });
 
   if (isLoadingMatchesWithBets) {
     return <div> Loading... </div>
