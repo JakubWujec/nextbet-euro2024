@@ -12,6 +12,7 @@ import { format } from 'date-fns';
 import { useForm } from "react-hook-form";
 import Image from 'next/image'
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 type BetFormProps = {
     match: MatchWithBet
@@ -19,6 +20,7 @@ type BetFormProps = {
 
 export function BetForm({ match }: BetFormProps) {
     const { toast } = useToast()
+    const [isBetPlaced, setIsBetPlaced] = useState<boolean>(!!match.bets.length);
     const form = useForm<CreateBetInput>({
         resolver: zodResolver(createBetSchema),
         defaultValues: {
@@ -35,6 +37,7 @@ export function BetForm({ match }: BetFormProps) {
                 title: "Saved",
                 description: "Bet saved successfully",
             })
+            setIsBetPlaced(true);
         },
     });
 
@@ -90,7 +93,7 @@ export function BetForm({ match }: BetFormProps) {
                             </FormLabel>
                         </div>
                         <div className="row-start-4 row-span-1 col-start-1 col-span-5 flex justify-center items-center">
-                            <Button type="submit">Submit</Button>
+                            <Button type="submit">{isBetPlaced ? "Update" : "Save"}</Button>
                         </div>
                     </CardContent>
                 </Card>
