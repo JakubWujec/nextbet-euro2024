@@ -19,6 +19,7 @@ type BetFormProps = {
 }
 
 export function BetForm({ match }: BetFormProps) {
+    const utils = api.useUtils();
     const { toast } = useToast()
     const [isBetPlaced, setIsBetPlaced] = useState<boolean>(!!match.bets.length);
     const form = useForm<CreateBetInput>({
@@ -38,6 +39,7 @@ export function BetForm({ match }: BetFormProps) {
                 description: "Bet saved successfully",
             })
             setIsBetPlaced(true);
+            utils.match.myBets.invalidate()
         },
     });
 
