@@ -6,10 +6,12 @@ import { useState } from "react";
 import { BetInfo as BetInfo2 } from "./bet-info";
 import { isBefore } from "date-fns";
 import { BetForm } from "./bet-form";
+import { Progress } from "@/components/ui/progress";
 
 function BetsPage() {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const { data: matchesWithBets, isLoading: isLoadingMatchesWithBets } = api.match.myBets.useQuery({ date: selectedDate });
+  const betCount = matchesWithBets?.reduce((counter, match) => counter + (match.bets.length ? 1 : 0), 0) ?? 0;
 
   if (isLoadingMatchesWithBets) {
     return <div> Loading... </div>
@@ -22,6 +24,10 @@ function BetsPage() {
     <div className="mx-auto grid w-full max-w-6xl gap-2">
       <h1 className="text-3xl font-semibold my-4">Bets</h1>
       <DateCarousel selectedDate={selectedDate} setSelectedDate={setSelectedDate}></DateCarousel>
+      {matchesWithBets.length && <div className="flex flex-col gap-2 items-center">
+        <p>You have placed {betCount} of given {matchesWithBets.length} bets.</p>
+        <Progress value={100 * betCount / matchesWithBets.length}></Progress>
+      </div>}
       {(!matchesWithBets.length) ? (<div> No matches this day.</div>) :
         <div>
           {matchesWithBets.map(matchWithBet =>
@@ -37,5 +43,7 @@ function BetsPage() {
     </div>
   )
 }
+
+function CurrentProgress() { }
 
 export default BetsPage
