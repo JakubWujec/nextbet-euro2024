@@ -26,14 +26,14 @@ export const betRouter = createTRPCRouter({
             return ctx.db.bet.findMany({
                 where: {
                     placedBy: ctx.session.user
-                }, 
+                },
                 include: {
                     onMatch: {
                         include: {
-                          homeTeam: true,
-                          awayTeam: true,
+                            homeTeam: true,
+                            awayTeam: true,
                         }
-                      }
+                    }
                 }
             });
         }),
@@ -66,7 +66,6 @@ export const betRouter = createTRPCRouter({
 
 
             } catch (error) {
-                console.log(error)
                 throw new TRPCError({
                     code: 'INTERNAL_SERVER_ERROR',
                     message: "Something went wrong"

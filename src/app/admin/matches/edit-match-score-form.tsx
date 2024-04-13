@@ -97,7 +97,6 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                 />
                 <Button type="submit">Submit</Button>
                 <Button type="button" onClick={() => {
-                    console.log("XXX", preloadedValues.id)
                     deleteMatch.mutate({ id: preloadedValues.id })
                 }
                 }>Delete</Button>

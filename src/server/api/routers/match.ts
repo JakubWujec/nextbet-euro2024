@@ -73,7 +73,6 @@ export const matchRouter = createTRPCRouter({
 
         return updatedMatch
       } catch (error) {
-        console.log(error)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: "Something went wrong"
@@ -104,7 +103,6 @@ export const matchRouter = createTRPCRouter({
         return updatedMatch
 
       } catch (error) {
-        console.log(error)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: "Something went wrong"
@@ -163,7 +161,6 @@ export const matchRouter = createTRPCRouter({
         }
       })
 
-      console.log("XX", name)
       if (!user) {
         throw new TRPCError({
           code: 'NOT_FOUND',
@@ -193,7 +190,7 @@ export const matchRouter = createTRPCRouter({
     .input(z.object({
       date: z.date().optional(),
       page: z.number().default(1),
-      pageSize: z.number().default(5)
+      pageSize: z.number().default(10)
     }))
     .query(async ({ ctx, input }) => {
       const filters: Prisma.MatchWhereInput = {};
@@ -218,7 +215,10 @@ export const matchRouter = createTRPCRouter({
           homeTeam: true
         },
         skip: skip,
-        take: input.pageSize
+        take: input.pageSize,
+        orderBy: {
+          startDate: 'desc'
+        }
       });
 
       return result;

@@ -31,7 +31,7 @@ const multibetSchema = z.object(
   }
 )
 
-function propsToFormValues(props: MultibetFormProps){
+function propsToFormValues(props: MultibetFormProps) {
   return props.matches.map((match, index) => {
     return {
       matchId: match.id,
@@ -51,21 +51,21 @@ export function MultibetForm({ matches }: MultibetFormProps) {
   const form = useForm<MultiBetInput>({
     resolver: zodResolver(multibetSchema),
     defaultValues: {
-      bets: propsToFormValues({matches})
+      bets: propsToFormValues({ matches })
     },
     values: {
-      bets: propsToFormValues({matches})
+      bets: propsToFormValues({ matches })
     }
   })
 
   const createBet = api.bet.createOrUpdate.useMutation({
     onSuccess: () => {
-      console.log("SUCCESS")
+
     },
   });
 
   function onSubmit(values: MultiBetInput) {
-    for(let bet of values.bets){
+    for (let bet of values.bets) {
       createBet.mutate(bet);
     }
   }
