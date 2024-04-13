@@ -155,17 +155,19 @@ export const matchRouter = createTRPCRouter({
           message: 'Can not create a bet while logged out',
         })
       }
+      const name = decodeURI(input.userName)
 
       const user = await ctx.db.user.findFirst({
         where: {
-          name: input.userName
+          name: name
         }
       })
 
+      console.log("XX", name)
       if (!user) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: 'User not exist',
+          message: `User not exist. Name ${name}`,
         })
       }
 
