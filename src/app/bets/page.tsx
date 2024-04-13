@@ -24,7 +24,7 @@ function BetsPage() {
     <div className="mx-auto grid w-full max-w-6xl gap-2">
       <h1 className="text-3xl font-semibold my-4">Bets</h1>
       <DateCarousel selectedDate={selectedDate} setSelectedDate={setSelectedDate}></DateCarousel>
-      {matchesWithBets.length && <div className="flex flex-col gap-2 items-center">
+      {!!matchesWithBets.length && <div className="flex flex-col gap-2 items-center">
         <p>You have placed {betCount} of given {matchesWithBets.length} bets.</p>
         <Progress value={100 * betCount / matchesWithBets.length}></Progress>
       </div>}
@@ -43,7 +43,5 @@ function BetsPage() {
     </div>
   )
 }
-
-function CurrentProgress() { }
 
 export default BetsPage
