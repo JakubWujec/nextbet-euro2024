@@ -4,7 +4,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { Prisma } from "@prisma/client";
+import { Prisma, Stage } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { add, formatISO, startOfDay } from "date-fns";
 import { z } from "zod";
@@ -112,7 +112,8 @@ export const matchRouter = createTRPCRouter({
 
   myBets: protectedProcedure
     .input(z.object({
-      date: z.date().optional()
+      date: z.date().optional(),
+      stage: z.nativeEnum(Stage).optional()
     }))
     .query(({ ctx, input }) => {
       const userId = ctx.session.user.id
@@ -127,6 +128,10 @@ export const matchRouter = createTRPCRouter({
           gte,
           lt
         }
+      }
+
+      if (input.stage) {
+        filters.stage = input.stage
       }
 
       return ctx.db.match.findMany({
