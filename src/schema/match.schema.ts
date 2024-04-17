@@ -7,7 +7,7 @@ import { Bet, Match, Team, Stage } from '@prisma/client';
 export const createMatchSchema = z.object({
   homeTeamId: z.number(),
   awayTeamId: z.number(),
-  stage: z.nativeEnum(Stage).default("G"),
+  stage: z.nativeEnum(Stage).default("G1"),
   startDate: z.date()
 })
 
@@ -35,7 +35,7 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 
 export type GetOneMatchOutput = RouterOutput['match']['getOne']
 
-export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['getListWithCurrentUserBets'];
+export type GetListWithCurrentUserBetsOutput = RouterOutput['match']['myBets'];
 
 export type MatchWithBet = ({
   awayTeam: Team;

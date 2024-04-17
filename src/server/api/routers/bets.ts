@@ -71,7 +71,38 @@ export const betRouter = createTRPCRouter({
                     message: "Something went wrong"
                 })
             }
+        }),
+
+    getMatchBetStats: publicProcedure
+        .input(z.object({
+            matchId: z.number().nonnegative(),
+        }))
+        .query(async ({ ctx, input }) => {
+            let match = await ctx.db.match.findUniqueOrThrow({
+                where: {
+                    id: input.matchId
+                }
+            })
+
+            let aggregate = await ctx.db.bet.groupBy({
+                by: ['homeTeamScore', 'awayTeamScore', 'points'],
+                _count: {
+                    _all: true,
+                },
+                where: {
+                    matchId: input.matchId
+                }
+            })
+
+            let count = aggregate.map(x => x._count._all).reduce((a, b) => a + b, 0);
+
+            return {
+                match,
+                stats: aggregate,
+                count,
+            };
+
         })
 
-
 });
+
