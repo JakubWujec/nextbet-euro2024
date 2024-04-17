@@ -11,7 +11,7 @@ import { StageSelector } from "./stage-selector";
 import { BetsProgress } from "../_components/bets-progress";
 
 function BetsPage() {
-  const [selectedStage, setSelectedStage] = useState<Stage>(Stage.G);
+  const [selectedStage, setSelectedStage] = useState<Stage>(Stage.G1);
   const { data: matchesWithBets, isLoading: isLoadingMatchesWithBets } = api.match.myBets.useQuery({ stage: selectedStage });
 
 
