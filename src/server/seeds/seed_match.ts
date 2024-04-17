@@ -1,5 +1,5 @@
 import { match } from "assert";
-import { db } from "./db";
+import { db } from "../db";
 import fixtures from "./euro_2024_fixtures";
 import { Stage } from "@prisma/client";
 

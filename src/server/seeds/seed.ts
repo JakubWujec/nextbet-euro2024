@@ -1,4 +1,4 @@
-import { db } from "./db";
+import { db } from "../db";
 
 async function main() {
     const clearTeams = await db.team.deleteMany();
