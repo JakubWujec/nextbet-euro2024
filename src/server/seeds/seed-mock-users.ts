@@ -1,9 +1,5 @@
 import { db } from "../db";
 
-// create multiple users with accounts
-
-
-
 async function main() {
     const users = await db.user.createMany({
         data: [
