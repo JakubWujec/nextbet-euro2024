@@ -47,7 +47,7 @@ model Match {
   awayTeamScore Int?
   startDate     DateTime
   finished      Boolean  @default(false)
-  stage Stage   @default(G)
+  stage Stage   @default(G1)
 
   awayTeam      Team     @relation("matchAwayTeam", fields: [awayTeamId], references: [id], onUpdate: NoAction, map: "FK_Match_Away_Team")
   homeTeam      Team     @relation("matchHomeTeam", fields: [homeTeamId], references: [id], onUpdate: NoAction, map: "FK_Match_Home_Team")
@@ -55,7 +55,9 @@ model Match {
 }
 
 enum Stage {
-  G
+  G1
+  G2
+  G3
   R16
   QF
   SF
