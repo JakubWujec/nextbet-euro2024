@@ -1,7 +1,13 @@
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger
+} from "@/components/ui/dialog";
 import { MatchWithBet } from "@/schema/match.schema";
 import { format } from "date-fns";
-import Image from 'next/image'
-
+import { BarChart3 } from 'lucide-react';
+import Image from 'next/image';
+import { MatchBetStats } from "../_components/match-bet-stats/match-bet-stats";
 
 type BetInfoProps = {
     match: MatchWithBet
@@ -35,9 +41,19 @@ export function BetInfo({ match }: BetInfoProps) {
                 </>}
 
             </div>
-            <div className="flex items-center justify-center bg-green-200 row-start-1 row-span-4 col-start-4">
-                <p className="text-3xl font-semibold">{match.bets[0]?.points ?? 0}</p>
-                <p className="text-sm">pts.</p>
+            <div className="relative bg-green-200 row-start-1 row-span-4 col-start-4">
+                <div className="absolute top-0 right-0 pt-2 pr-2">
+                    <Dialog>
+                        <DialogTrigger><BarChart3 /></DialogTrigger>
+                        <DialogContent>
+                            <MatchBetStats matchId={match.id}></MatchBetStats>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+                <div className="flex items-center justify-center h-full">
+                    <p className="text-3xl font-semibold">{match.bets[0]?.points ?? 0}</p>
+                    <p className="text-sm">pts.</p>
+                </div>
             </div>
         </div>
     )
