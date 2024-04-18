@@ -4,8 +4,13 @@ import {
   createTRPCRouter,
   protectedProcedure
 } from "@/server/api/trpc";
+import { calculatePointsQuery } from "@/server/queries/calculate-points";
 
 export const adminRouter = createTRPCRouter({
+  updateAllPoints: protectedProcedure.mutation(async ({ ctx, input }) => {
+    await calculatePointsQuery();
+  }),
+
   updateBetPointsByMatchId: protectedProcedure
     .input(z.object({ matchId: z.number() }))
     .mutation(async ({ ctx, input }) => {

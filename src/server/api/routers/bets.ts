@@ -91,7 +91,10 @@ export const betRouter = createTRPCRouter({
                 },
                 where: {
                     matchId: input.matchId
-                }
+                },
+                orderBy: {
+                    points: 'desc',
+                },
             })
 
             let count = aggregate.map(x => x._count._all).reduce((a, b) => a + b, 0);

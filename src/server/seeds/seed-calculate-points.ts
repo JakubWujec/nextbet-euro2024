@@ -1,22 +1,9 @@
 import { db } from "../db";
+import { calculatePointsQuery } from "../queries/calculate-points";
+
 
 async function main() {
-    let result = await db.$queryRaw`
-        UPDATE "Bet"
-        set "points" = 
-            (CASE 
-            when "Match"."homeTeamScore" = "Bet"."homeTeamScore" 
-            AND "Match"."awayTeamScore" = "Bet"."awayTeamScore" 
-            THEN 5
-            when sign("Match"."homeTeamScore" - "Match"."awayTeamScore") = sign("Bet"."homeTeamScore" - "Bet"."awayTeamScore")
-            THEN 2
-            else 0 END)
-        FROM 
-        "Bet" as "BetAlias"
-        INNER JOIN 
-        "Match" ON "Match"."id" = "BetAlias"."matchId"
-    `
-
+    await calculatePointsQuery();
 }
 main()
     .then(async () => {
