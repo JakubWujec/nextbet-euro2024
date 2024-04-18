@@ -33,7 +33,7 @@ function StandingsPage() {
       {selectedUserName &&
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
           <DialogContent >
-            <ProfileCard name={selectedUserName}></ProfileCard>
+            <ProfileCard name={selectedUserName} showProfileButton={true}></ProfileCard>
           </DialogContent>
         </Dialog >
       }

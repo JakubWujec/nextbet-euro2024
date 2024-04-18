@@ -8,9 +8,10 @@ import Link from "next/link";
 
 type ProfileCardProps = {
     name: string;
+    showProfileButton?: boolean
 }
 
-export function ProfileCard({ name }: ProfileCardProps) {
+export function ProfileCard({ name, showProfileButton = false }: ProfileCardProps) {
     const { data, isLoading } = api.user.getUserStats.useQuery({ userName: name });
 
     if (!data) return null;
@@ -28,9 +29,9 @@ export function ProfileCard({ name }: ProfileCardProps) {
                 <ScoreCard title="Scores" value={`${data.correctScore}`}></ScoreCard>
             </CardContent>
             <CardFooter className="flex justify-center">
-                <Button asChild className="w-full">
+                {showProfileButton && <Button asChild className="w-full">
                     <Link href={`/users/${name}`} target="_blank">Show Profile</Link>
-                </Button>
+                </Button>}
             </CardFooter>
         </Card>
     )
