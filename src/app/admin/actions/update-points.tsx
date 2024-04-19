@@ -5,10 +5,7 @@ import { api } from "@/trpc/react";
 
 
 export function UpdatePoints() {
-    const updatePoints = api.admin.updateBetPointsByMatchId.useMutation({
-        onSuccess: () => {
-        },
-    });
+    const updatePoints = api.admin.updateBetPointsByMatchId.useMutation({});
 
     return (
         <div>

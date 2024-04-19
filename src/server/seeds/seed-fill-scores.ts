@@ -2,7 +2,7 @@ import { db } from "../db";
 
 async function main() {
     const matchIds = await db.match.findMany({ select: { id: true } });
-    for (let row of matchIds) {
+    for (const row of matchIds) {
         await db.match.update({
             where: {
                 id: row.id

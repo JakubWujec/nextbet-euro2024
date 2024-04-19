@@ -5,7 +5,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     const session = await getServerAuthSession();
 
     if (session?.user.role != 'ADMIN') {
-        return <div>I'm sorry, you are not an admin.</div>
+        return <div>I&apos;m sorry, you are not an admin.</div>
     }
 
     return (

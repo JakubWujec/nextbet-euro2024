@@ -101,7 +101,7 @@ export async function Header() {
 }
 
 function getNavLinks(userRole: UserRole | null | undefined) {
-    let links: {
+    const links: {
         label: string;
         href: string;
     }[] = [];

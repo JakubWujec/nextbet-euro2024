@@ -39,9 +39,9 @@ export function CreateTeamForm() {
   })
 
   const createTeam = api.team.create.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       router.refresh();
-      utils.team.getList.invalidate();
+      await utils.team.getList.invalidate();
     },
   });
 

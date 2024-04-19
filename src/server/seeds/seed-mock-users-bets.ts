@@ -11,8 +11,8 @@ async function main() {
 
     const matchIds = await db.match.findMany({ select: { id: true } });
 
-    for (let userRow of mockUsers) {
-        for (let matchRow of matchIds) {
+    for (const userRow of mockUsers) {
+        for (const matchRow of matchIds) {
             await db.bet.upsert({
                 where: {
                     matchId_userId: {

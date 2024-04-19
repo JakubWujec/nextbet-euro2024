@@ -22,7 +22,7 @@ export function MatchBetStats({ matchId }: MatchBetStatsProps) {
             <h1>Result: {data.match.homeTeamScore} : {data.match.awayTeamScore}</h1>
             <DataTable
                 columns={columns}
-                data={data['stats']}
+                data={data.stats}
             />
         </>
 

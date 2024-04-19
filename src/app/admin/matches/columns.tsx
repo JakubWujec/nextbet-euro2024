@@ -22,8 +22,11 @@ export const columns: ColumnDef<Match>[] = [
     {
         accessorKey: "stage",
         header: "Stage",
-        filterFn: (row, id, value) => {
-            return value.includes(row.getValue(id))
+        filterFn: (row, id, value: string) => {
+            if (value) {
+                return value.includes(row.getValue(id))
+            }
+            return false;
         },
     },
     {

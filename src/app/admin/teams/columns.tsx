@@ -24,9 +24,13 @@ export const columns: ColumnDef<Team>[] = [
         accessorKey: "code",
         header: "TeamCode",
         cell: props => {
+            const countryCode = props.getValue() as string;
             return (
                 <div className="flex flex-col items-center w-16 justify-center">
-                    <Image src={`/flags/${props.getValue()}.svg`} alt={props.getValue<string>() ?? "flag"} width="64" height="64" />
+                    <Image
+                        src={`/flags/${countryCode}.svg`}
+                        alt={countryCode ?? "flag"}
+                        width="64" height="64" />
                     <p>{props.getValue() as string}</p>
                 </div >
             )

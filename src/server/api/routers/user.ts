@@ -64,10 +64,10 @@ export const userRouter = createTRPCRouter({
                 }
             })
 
-            let count = queryResult.reduce((a, b) => a + b._count._all, 0);
-            let points = queryResult.reduce((a, b) => a + b.points * b._count._all, 0);
-            let correctWinner = queryResult.find(x => x.points === 2)?._count._all ?? 0;
-            let correctScore = queryResult.find(x => x.points === 5)?._count._all ?? 0;
+            const count = queryResult.reduce((a, b) => a + b._count._all, 0);
+            const points = queryResult.reduce((a, b) => a + b.points * b._count._all, 0);
+            const correctWinner = queryResult.find(x => x.points === 2)?._count._all ?? 0;
+            const correctScore = queryResult.find(x => x.points === 5)?._count._all ?? 0;
 
 
             return {

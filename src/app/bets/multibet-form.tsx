@@ -58,14 +58,10 @@ export function MultibetForm({ matches }: MultibetFormProps) {
     }
   })
 
-  const createBet = api.bet.createOrUpdate.useMutation({
-    onSuccess: () => {
-
-    },
-  });
+  const createBet = api.bet.createOrUpdate.useMutation({});
 
   function onSubmit(values: MultiBetInput) {
-    for (let bet of values.bets) {
+    for (const bet of values.bets) {
       createBet.mutate(bet);
     }
   }

@@ -32,14 +32,14 @@ export function BetForm({ match }: BetFormProps) {
     })
 
     const createBet = api.bet.createOrUpdate.useMutation({
-        onSuccess: () => {
+        onSuccess: async () => {
             toast({
                 variant: "success",
                 title: "Saved",
                 description: "Bet saved successfully",
             })
             setIsBetPlaced(true);
-            utils.match.myBets.invalidate()
+            await utils.match.myBets.invalidate()
         },
     });
 

@@ -1,7 +1,7 @@
 import { db } from "../db";
 
 async function main() {
-    let result = await db.$queryRaw`
+    const result = await db.$queryRaw`
     SELECT
         "Match"."homeTeamScore" as mh,
         "Match"."awayTeamScore" as ma,

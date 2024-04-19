@@ -41,9 +41,9 @@ export function CreateMatchForm() {
   })
 
   const createMatch = api.match.create.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       router.refresh();
-      utils.match.getList.invalidate()
+      await utils.match.getList.invalidate()
     },
   });
 

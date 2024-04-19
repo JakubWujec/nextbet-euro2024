@@ -28,13 +28,13 @@ export const matchRouter = createTRPCRouter({
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
 
-      let removeBets = await ctx.db.bet.deleteMany({
+      const removeBets = await ctx.db.bet.deleteMany({
         where: {
           matchId: input.id
         }
       })
 
-      let match = await ctx.db.match.delete({
+      const match = await ctx.db.match.delete({
         where: {
           id: input.id
         }
@@ -211,9 +211,9 @@ export const matchRouter = createTRPCRouter({
         }
       }
 
-      let skip = (input.page - 1) * input.pageSize
+      const skip = (input.page - 1) * input.pageSize
 
-      let result = await ctx.db.match.findMany({
+      const result = await ctx.db.match.findMany({
         where: filters,
         include: {
           awayTeam: true,

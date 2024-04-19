@@ -78,13 +78,13 @@ export const betRouter = createTRPCRouter({
             matchId: z.number().nonnegative(),
         }))
         .query(async ({ ctx, input }) => {
-            let match = await ctx.db.match.findUniqueOrThrow({
+            const match = await ctx.db.match.findUniqueOrThrow({
                 where: {
                     id: input.matchId
                 }
             })
 
-            let aggregate = await ctx.db.bet.groupBy({
+            const aggregate = await ctx.db.bet.groupBy({
                 by: ['homeTeamScore', 'awayTeamScore', 'points'],
                 _count: {
                     _all: true,
@@ -97,7 +97,7 @@ export const betRouter = createTRPCRouter({
                 },
             })
 
-            let count = aggregate.map(x => x._count._all).reduce((a, b) => a + b, 0);
+            const count = aggregate.map(x => x._count._all).reduce((a, b) => a + b, 0);
 
             return {
                 match,

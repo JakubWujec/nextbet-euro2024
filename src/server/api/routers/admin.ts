@@ -15,7 +15,7 @@ export const adminRouter = createTRPCRouter({
     .input(z.object({ matchId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       // for every bet on this match update points column;
-      let result = await ctx.db.$queryRaw`
+      const result = await ctx.db.$queryRaw`
             UPDATE "Bet"
               set "points" = 
                 (CASE 

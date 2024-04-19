@@ -35,15 +35,15 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
     })
 
     const deleteMatch = api.match.deleteOne.useMutation({
-        onSuccess: () => {
-            utils.match.getList.invalidate()
+        onSuccess: async () => {
+            await utils.match.getList.invalidate()
         },
     });
 
 
     const updateMatch = api.match.updateScore.useMutation({
-        onSuccess: () => {
-            utils.match.getList.invalidate()
+        onSuccess: async () => {
+            await utils.match.getList.invalidate()
         },
     });
 
