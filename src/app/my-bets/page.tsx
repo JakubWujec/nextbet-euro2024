@@ -5,8 +5,8 @@ import { api } from "@/trpc/react";
 import { Stage } from "@prisma/client";
 import { isBefore } from "date-fns";
 import { useState } from "react";
-import { BetForm } from "../bets/bet-form";
-import { BetInfo } from "../bets/bet-info";
+import { BetForm } from "../_components/bet-form";
+import { BetInfo } from "../_components/bet-info";
 import { StageSelector } from "./stage-selector";
 import { BetsProgress } from "../_components/bets-progress";
 

@@ -2,7 +2,7 @@
 
 import { api } from "@/trpc/react";
 import { ProfileCard } from "../../_components/profile-card";
-import { BetInfo } from "@/app/bets/bet-info";
+import { BetInfo } from "@/app/_components/bet-info";
 
 function Page({ params: { name } }: { params: { name: string } }) {
     const decodedName = decodeURI(name)

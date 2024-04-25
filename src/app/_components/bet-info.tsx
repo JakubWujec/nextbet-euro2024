@@ -7,7 +7,7 @@ import { MatchWithBet } from "@/schema/match.schema";
 import { format } from "date-fns";
 import { BarChart3 } from 'lucide-react';
 import Image from 'next/image';
-import { MatchBetStats } from "../_components/match-bet-stats/match-bet-stats";
+import { MatchBetStats } from "./match-bet-stats/match-bet-stats";
 
 type BetInfoProps = {
     match: MatchWithBet

@@ -31,7 +31,7 @@ export async function Header() {
                 {links.map(link => <Link
                     key={link.label}
                     href={link.href}
-                    className="text-foreground transition-colors hover:text-foreground"
+                    className="text-foreground transition-colors hover:text-foreground text-nowrap"
                 >
                     {link.label}
                 </Link>)}
@@ -107,8 +107,8 @@ function getNavLinks(userRole: UserRole | null | undefined) {
     }[] = [];
     const userLinks = [
         {
-            label: 'Bets',
-            href: '/bets'
+            label: 'My Bets',
+            href: '/my-bets'
         },
         {
             label: "Standings",
