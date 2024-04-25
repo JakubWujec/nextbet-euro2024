@@ -1,15 +1,15 @@
-import { z } from "zod";
 
+import { Standing } from "@/schema/standing.schema";
 import {
     createTRPCRouter,
-    protectedProcedure,
-    publicProcedure,
+    publicProcedure
 } from "@/server/api/trpc";
-import { Standing } from "@/schema/standing.schema";
+import { getLastStandingsUpdateDate } from "@/server/queries/system";
 
 export const standingRouter = createTRPCRouter({
     getList: publicProcedure
         .query(async ({ ctx }) => {
+            const lastUpdated = await getLastStandingsUpdateDate();
             const standings = await ctx.db.$queryRaw`
                 SELECT 
                     "User"."name" as name, 
@@ -24,6 +24,11 @@ export const standingRouter = createTRPCRouter({
                     GROUP BY "userId"
                 ) "T_rank" on "T_rank"."userId" = "User"."id"
             `
-            return standings as Standing[]
+
+            return {
+                lastUpdated: lastUpdated,
+                standings: standings as Standing[]
+            }
+
         }),
 });

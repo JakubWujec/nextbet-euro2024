@@ -54,6 +54,11 @@ model Match {
   bets Bet[] @relation("betPlacedOnMatch")
 }
 
+model System {
+  key     String   @id(map: "PK_System")
+  value   Json
+}
+
 enum Stage {
   G1
   G2
