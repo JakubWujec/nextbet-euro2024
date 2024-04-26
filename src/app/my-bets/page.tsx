@@ -29,9 +29,9 @@ function BetsPage() {
       <BetsProgress matchesWithBets={matchesWithBets}></BetsProgress>
       {
         (!matchesWithBets.length) ? (<div> No matches.</div>) :
-          <div>
+          <div className="w-full flex flex-wrap justify-center">
             {matchesWithBets.map(matchWithBet =>
-              <div key={matchWithBet.id} className="my-4">
+              <div key={matchWithBet.id} className="flex my-4 min-w-[300px] max-w-[380px] px-2 min-h-[200px] flex-grow">
                 {isBefore(new Date(), matchWithBet.startDate) ?
                   <BetForm match={matchWithBet}></BetForm> :
                   <BetInfo match={matchWithBet}></BetInfo>
@@ -39,6 +39,7 @@ function BetsPage() {
               </div>
             )}
           </div>
+
       }
     </div >
   )
