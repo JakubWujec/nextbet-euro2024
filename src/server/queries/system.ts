@@ -3,7 +3,7 @@ import { db } from "../db";
 const STANDINGS_UPDATE_KEY = 'standings_update'
 
 async function getLastStandingsUpdateDate() {
-    let obj = await db.system.findFirst({
+    const obj = await db.system.findFirst({
         where: {
             key: STANDINGS_UPDATE_KEY
         }
@@ -12,7 +12,8 @@ async function getLastStandingsUpdateDate() {
     if (!obj?.value) {
         return null;
     }
-    let json = JSON.parse(JSON.stringify(obj.value));
+
+    const json = JSON.parse(JSON.stringify(obj.value));
 
     return new Date(json.lastUpdated);
 }

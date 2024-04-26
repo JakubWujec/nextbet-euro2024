@@ -24,7 +24,7 @@ function Page() {
     )
 }
 
-export const columns: ColumnDef<ScoringRule>[] = [
+const columns: ColumnDef<ScoringRule>[] = [
     {
         accessorKey: "action",
         header: "Action",
