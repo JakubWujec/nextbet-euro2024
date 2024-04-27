@@ -29,7 +29,7 @@ function BetsPage() {
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-2">
+    <div className="mx-auto px-4 md:px-8 w-full max-w-6xl gap-2">
       <h1 className="text-3xl font-semibold my-4">Bets</h1>
       <StageSelector stages={Object.values(Stage)} selectedStage={selectedStage} setSelectedStage={(stage) => setSelectedStage(stage)}></StageSelector>
       <BetsProgress matchesWithBets={data.bets}></BetsProgress>
@@ -37,7 +37,7 @@ function BetsPage() {
         (!data.bets.length) ? (<div> No matches.</div>) :
           <div className="w-full flex flex-wrap justify-center">
             {data.bets.map(matchWithBet =>
-              <div key={matchWithBet.id} className="flex my-4 min-w-[300px] max-w-[380px] px-2 min-h-[200px] flex-grow">
+              <div key={matchWithBet.id} className="flex my-4 min-w-[300px] max-w-[360px] px-2 min-h-[200px] flex-grow">
                 {isBefore(new Date(), matchWithBet.startDate) ?
                   <BetForm match={matchWithBet}></BetForm> :
                   <BetInfo match={matchWithBet}></BetInfo>
