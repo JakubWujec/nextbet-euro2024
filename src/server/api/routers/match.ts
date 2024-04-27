@@ -4,6 +4,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { getStageByDate } from "@/server/queries/current-stage";
 import { Prisma, Stage } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { add, formatISO, startOfDay } from "date-fns";
@@ -115,7 +116,7 @@ export const matchRouter = createTRPCRouter({
       date: z.date().optional(),
       stage: z.nativeEnum(Stage).optional()
     }))
-    .query(({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id
       const filters: Prisma.MatchWhereInput = {};
 
@@ -134,7 +135,7 @@ export const matchRouter = createTRPCRouter({
         filters.stage = input.stage
       }
 
-      return ctx.db.match.findMany({
+      const bets = await ctx.db.match.findMany({
         where: filters,
         include: {
           awayTeam: true,
@@ -146,6 +147,11 @@ export const matchRouter = createTRPCRouter({
           }
         }
       });
+
+      return {
+        bets: bets,
+        currentStage: getStageByDate(new Date())
+      }
     }),
 
   getListWithUserBetsThatHaveStartedAlready: publicProcedure
