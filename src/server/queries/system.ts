@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { db } from "../db";
 
 const STANDINGS_UPDATE_KEY = 'standings_update'

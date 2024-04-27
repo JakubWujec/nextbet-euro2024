@@ -3,7 +3,7 @@ import { db } from "../db";
 import fixtures from "../data/euro_2024_fixtures";
 
 async function seedTeams() {
-    const teams = await db.team.createMany({
+    await db.team.createMany({
         data: [
             { name: 'Germany', code: 'GER' },
             { name: 'Switzerland', code: 'SWI' },
@@ -49,7 +49,7 @@ async function seedMatches() {
         }
     })
 
-    const matches = await db.match.createMany({
+    await db.match.createMany({
         data: group_matches_data
     });
 }

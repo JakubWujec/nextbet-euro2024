@@ -29,7 +29,7 @@ export const matchRouter = createTRPCRouter({
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
 
-      const removeBets = await ctx.db.bet.deleteMany({
+      await ctx.db.bet.deleteMany({
         where: {
           matchId: input.id
         }

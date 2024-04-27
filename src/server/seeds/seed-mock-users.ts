@@ -1,7 +1,7 @@
 import { db } from "../db";
 
 async function main() {
-    const users = await db.user.createMany({
+    await db.user.createMany({
         data: [
             { name: "Mock_John123" },
             { name: "Mock_Mike2004" },

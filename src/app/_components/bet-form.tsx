@@ -1,18 +1,17 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { CreateBetInput, createBetSchema } from "@/schema/bet.schema";
 import { MatchWithBet } from "@/schema/match.schema";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from 'date-fns';
-import { useForm } from "react-hook-form";
-import Image from 'next/image'
-import { useToast } from "@/components/ui/use-toast";
+import Image from 'next/image';
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 type BetFormProps = {
     match: MatchWithBet

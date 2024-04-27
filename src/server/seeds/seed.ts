@@ -2,8 +2,8 @@ import { db } from "../db";
 import { seedMatches, seedTeams } from "../queries/seed-queries";
 
 async function main() {
-    const clearMatches = await db.match.deleteMany();
-    const clearTeams = await db.team.deleteMany();
+    await db.match.deleteMany();
+    await db.team.deleteMany();
     await seedTeams();
     await seedMatches();
 }
