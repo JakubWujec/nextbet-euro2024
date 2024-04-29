@@ -7,12 +7,11 @@
  * need to use are documented accordingly near the end.
  */
 
+import { getServerAuthSession } from "@/server/auth";
+import { db } from "@/server/db";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
-import { getServerAuthSession } from "@/server/auth";
-import { db } from "@/server/db";
 
 /**
  * 1. CONTEXT
@@ -35,6 +34,61 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     ...opts,
   };
 };
+
+
+interface CreateContextOptions {
+  session: Awaited<ReturnType<typeof getServerAuthSession>>;
+}
+
+/**
+ * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
+ * it from here.
+ *
+ * Examples of things you may need it for:
+ * - testing, so we don't have to mock Next.js' req/res
+ * - tRPC's `createSSGHelpers`, where we don't have req/res
+ *
+ * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
+ */
+export const createInnerTRPCContext = (opts: CreateContextOptions) => {
+  return {
+    db,
+    // session: opts.session,
+    ...opts,
+  };
+};
+
+/**
+ * This is the actual context you will use in your router. It will be used to process every request
+ * that goes through your tRPC endpoint.
+ *
+ * @see https://trpc.io/docs/context
+ */
+
+// /**
+//  * Defines your inner context shape.
+//  * Add fields here that the inner context brings.
+//  */
+// interface CreateInnerContextOptions extends Partial<CreateNextContextOptions> {
+//   session: Awaited<ReturnType<typeof getServerAuthSession>>
+// }
+// /**
+//  * Inner context. Will always be available in your procedures, in contrast to the outer context.
+//  *
+//  * Also useful for:
+//  * - testing, so you don't have to mock Next.js' `req`/`res`
+//  * - tRPC's `createServerSideHelpers` where we don't have `req`/`res`
+//  *
+//  * @link https://trpc.io/docs/v11/context#inner-and-outer-context
+//  */
+// export async function createContextInner(opts?: CreateInnerContextOptions) {
+//   return {
+//     db,
+//     session: opts?.session,
+//   };
+// }
+
+
 
 /**
  * 2. INITIALIZATION
