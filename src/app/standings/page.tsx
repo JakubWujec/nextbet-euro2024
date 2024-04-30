@@ -21,10 +21,8 @@ function StandingsPage() {
   }
   const { standings, lastUpdated } = data
 
-
-
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-2">
+    <>
       <h1 className="text-3xl font-semibold my-4">Standings</h1>
       {lastUpdated && <p>Last updated: {format(lastUpdated, 'EEE dd MMM yyyy HH:mm')}</p>}
       <DataTable
@@ -42,7 +40,7 @@ function StandingsPage() {
           </DialogContent>
         </Dialog >
       }
-    </div>
+    </>
   )
 }
 

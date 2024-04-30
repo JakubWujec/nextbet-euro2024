@@ -10,7 +10,7 @@ const scoringRules = await getScoringRules();
 function Page() {
 
     return (
-        <div className="sm:w-[80%] mx-auto">
+        <>
             <h1 className="text-3xl font-semibold my-4">Rules</h1>
             <div>
                 <p className="py-2">With every bet you get to earn points according to the table below.</p>
@@ -20,7 +20,7 @@ function Page() {
                 />
 
             </div>
-        </div>
+        </>
     )
 }
 

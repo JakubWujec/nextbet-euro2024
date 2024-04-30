@@ -29,7 +29,7 @@ function BetsPage() {
   }
 
   return (
-    <div className="mx-auto px-4 md:px-8 w-full max-w-6xl gap-2">
+    <>
       <h1 className="text-3xl font-semibold my-4">Bets</h1>
       <StageSelector stages={Object.values(Stage)} selectedStage={selectedStage} setSelectedStage={(stage) => setSelectedStage(stage)}></StageSelector>
       <BetsProgress matchesWithBets={data.bets}></BetsProgress>
@@ -47,7 +47,7 @@ function BetsPage() {
           </div>
 
       }
-    </div >
+    </>
   )
 }
 

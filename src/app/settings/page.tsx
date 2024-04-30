@@ -9,7 +9,7 @@ async function Page() {
     }
 
     return (
-        <div className="sm:w-[80%] mx-auto">
+        <>
             <h1 className="text-3xl font-semibold my-4">Your account</h1>
 
             {!!session?.user.name &&
@@ -19,7 +19,7 @@ async function Page() {
                 </div>
             }
 
-        </div>
+        </>
     )
 }
 
