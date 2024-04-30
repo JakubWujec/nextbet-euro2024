@@ -95,11 +95,14 @@ export function EditMatchScoreForm({ preloadedValues }: EditMatchScoreFormProps)
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Submit</Button>
-                <Button type="button" onClick={() => {
-                    deleteMatch.mutate({ id: preloadedValues.id })
-                }
-                }>Delete</Button>
+                <div className="flex justify-between">
+                    <Button type="submit">Submit</Button>
+                    <Button type="button" onClick={() => {
+                        deleteMatch.mutate({ id: preloadedValues.id })
+                    }
+                    }>Delete</Button>
+                </div>
+
             </form>
         </Form>
     );

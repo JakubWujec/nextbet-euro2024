@@ -4,8 +4,8 @@ import { CirclePlus } from 'lucide-react';
 
 function Page() {
   return (
-    <div>
-      <div className="flex justify-between items-center my-4">
+    <>
+      <div className="flex justify-between items-center mb-2">
         <h1 className="text-3xl font-semibold">Teams</h1>
         <Link
           href={'/admin/teams/create'}
@@ -19,7 +19,7 @@ function Page() {
       </div>
 
       <ListTeam></ListTeam>
-    </div>
+    </>
   )
 }
 

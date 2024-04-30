@@ -9,9 +9,7 @@ export function UpdatePoints() {
 
     return (
         <div>
-            <Button type="button" onClick={() => updatePoints.mutate()}> Update points</Button>
-
+            <Button type="button" onClick={() => updatePoints.mutate()}>Update points</Button>
         </div >
-
     )
 }

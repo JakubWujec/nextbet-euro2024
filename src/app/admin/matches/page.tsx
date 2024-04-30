@@ -14,14 +14,14 @@ function Page() {
   const [page, setPage] = useState(1);
   const { data: matches, isLoading } = api.match.getList.useQuery({
     page: page,
-    pageSize: 5
+    pageSize: 10
   },);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState<number | undefined>()
 
   return (
     <div className="mx-auto grid w-full gap-2">
-      <div className="flex justify-between items-center my-4">
+      <div className="flex justify-between items-center mb-2">
         <h1 className="text-3xl font-semibold">Matches</h1>
         <Link
           href={'/admin/matches/create'}
