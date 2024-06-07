@@ -1,3 +1,4 @@
+import { DeleteMocks } from "./delete-mocks"
 import { RunMocks } from "./mocks"
 import { UpdatePoints } from "./update-points"
 
@@ -8,6 +9,7 @@ function AdminPage() {
       <div className="flex gap-2">
         <UpdatePoints></UpdatePoints>
         <RunMocks></RunMocks>
+        <DeleteMocks></DeleteMocks>
       </div>
 
     </div>

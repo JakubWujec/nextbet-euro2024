@@ -1,9 +1,9 @@
 import { db } from "../db";
-import { seedMockUsers } from "../queries/seed-queries";
+import { deleteMockUsersAndBets } from "../queries/seed-queries";
 
 
 async function main() {
-    await seedMockUsers();
+    await deleteMockUsersAndBets();
 }
 
 main()

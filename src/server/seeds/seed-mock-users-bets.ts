@@ -1,47 +1,12 @@
 import { db } from "../db";
-
-async function seedMockUsersBets() {
-    const mockUsers = await db.user.findMany({
-        where: {
-            name: {
-                startsWith: 'Mock'
-            }
-        }
-    });
-
-    const matchIds = await db.match.findMany({ select: { id: true } });
-
-    for (const userRow of mockUsers) {
-        for (const matchRow of matchIds) {
-            await db.bet.upsert({
-                where: {
-                    matchId_userId: {
-                        matchId: matchRow.id,
-                        userId: userRow.id,
-                    }
-                },
-                create: {
-                    matchId: matchRow.id,
-                    userId: userRow.id,
-                    homeTeamScore: Math.floor(Math.random() * 9),
-                    awayTeamScore: Math.floor(Math.random() * 9)
-                },
-                update: {
-                    matchId: matchRow.id,
-                    userId: userRow.id,
-                    homeTeamScore: Math.floor(Math.random() * 9),
-                    awayTeamScore: Math.floor(Math.random() * 9)
-                }
-            })
-        }
+import { seedMockUsersBets } from "../queries/seed-queries";
 
 
-    }
+async function main() {
+    await seedMockUsersBets();
 }
 
-
-
-seedMockUsersBets()
+main()
     .then(async () => {
         await db.$disconnect();
     })
@@ -51,4 +16,4 @@ seedMockUsersBets()
         process.exit(1);
     });
 
-export default seedMockUsersBets;
+export default main;

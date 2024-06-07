@@ -3,9 +3,8 @@ import {
   protectedProcedure
 } from "@/server/api/trpc";
 import { calculatePointsQuery } from "@/server/queries/calculate-points";
+import { deleteMockUsersAndBets, seedMockUsersBets, seedMockUsers } from "@/server/queries/seed-queries";
 import { updateLastStandingsUpdateDate } from "@/server/queries/system";
-import seedMockUsers from "@/server/seeds/seed-mock-users";
-import seedMockUsersBets from "@/server/seeds/seed-mock-users-bets";
 
 export const adminRouter = createTRPCRouter({
   updateAllPoints: protectedProcedure.mutation(async ({ }) => {
@@ -16,4 +15,7 @@ export const adminRouter = createTRPCRouter({
     await seedMockUsers()
     await seedMockUsersBets();
   }),
+  deleteMockUsersAndBets: protectedProcedure.mutation(async ({ }) => {
+    await deleteMockUsersAndBets();
+  })
 });

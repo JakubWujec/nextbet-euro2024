@@ -54,7 +54,73 @@ async function seedMatches() {
     });
 }
 
+async function seedMockUsers() {
+    await db.user.createMany({
+        data: [
+            { name: "Mock_John123" },
+            { name: "Mock_Mike2004" },
+            { name: "Mock_Rambo12" },
+            { name: "Mock_Philip" },
+            { name: "Mock_Jane" },
+            { name: "Mock_Wilfred" },
+            { name: "Mock_Pius" },
+        ]
+    })
+}
+
+async function seedMockUsersBets() {
+    const mockUsers = await db.user.findMany({
+        where: {
+            name: {
+                startsWith: 'Mock'
+            }
+        }
+    });
+
+    const matchIds = await db.match.findMany({ select: { id: true } });
+
+    for (const userRow of mockUsers) {
+        for (const matchRow of matchIds) {
+            await db.bet.upsert({
+                where: {
+                    matchId_userId: {
+                        matchId: matchRow.id,
+                        userId: userRow.id,
+                    }
+                },
+                create: {
+                    matchId: matchRow.id,
+                    userId: userRow.id,
+                    homeTeamScore: Math.floor(Math.random() * 9),
+                    awayTeamScore: Math.floor(Math.random() * 9)
+                },
+                update: {
+                    matchId: matchRow.id,
+                    userId: userRow.id,
+                    homeTeamScore: Math.floor(Math.random() * 9),
+                    awayTeamScore: Math.floor(Math.random() * 9)
+                }
+            })
+        }
+
+
+    }
+}
+
+async function deleteMockUsersAndBets() {
+    const mockUsers = await db.user.deleteMany({
+        where: {
+            name: {
+                startsWith: 'Mock'
+            }
+        }
+    });
+}
+
 export {
     seedTeams,
-    seedMatches
+    seedMatches,
+    seedMockUsers,
+    seedMockUsersBets,
+    deleteMockUsersAndBets
 }
