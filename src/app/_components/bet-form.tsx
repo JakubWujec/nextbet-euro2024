@@ -57,7 +57,7 @@ export function BetForm({ match }: BetFormProps) {
                         <p className="text-md">{format(match.startDate, 'MM/dd/yyyy HH:mm')}</p>
                     </div>
                     <div className="row-start-2 row-span-2 col-start-1 col-span-2 flex justify-evenly items-center flex-wrap">
-                        <FormLabel className="flex flex-col gap-1 items-center">
+                        <FormLabel className="flex flex-col gap-1 items-center mb-2">
                             <Image src={`/flags/${match.homeTeam.code}.svg`} alt={match.homeTeam.code} width="64" height="64" />
                             <p>{match.homeTeam.name}</p>
                         </FormLabel>
