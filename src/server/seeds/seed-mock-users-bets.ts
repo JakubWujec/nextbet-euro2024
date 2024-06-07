@@ -1,6 +1,6 @@
 import { db } from "../db";
 
-async function main() {
+async function seedMockUsersBets() {
     const mockUsers = await db.user.findMany({
         where: {
             name: {
@@ -39,7 +39,9 @@ async function main() {
     }
 }
 
-main()
+
+
+seedMockUsersBets()
     .then(async () => {
         await db.$disconnect();
     })
@@ -49,4 +51,4 @@ main()
         process.exit(1);
     });
 
-export default main;
+export default seedMockUsersBets;
