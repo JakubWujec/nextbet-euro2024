@@ -1,6 +1,6 @@
 import { db } from "../db";
 
-async function main() {
+async function seedMockUsers() {
     await db.user.createMany({
         data: [
             { name: "Mock_John123" },
@@ -13,7 +13,7 @@ async function main() {
         ]
     })
 }
-main()
+seedMockUsers()
     .then(async () => {
         await db.$disconnect();
     })
@@ -23,4 +23,4 @@ main()
         process.exit(1);
     });
 
-export default main;
+export default seedMockUsers;
